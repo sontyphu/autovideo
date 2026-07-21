@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>XƯỞNG VIDEO AI | Video bạn đã quay, AI dựng thành cả tháng nội dung</title>
+<meta name="description" content="Khóa hậu kỳ video bằng AI. Ra lệnh bằng lời, máy cắt video dài của bạn thành 10-15 clip đăng được, đúng gu thương hiệu, làm được cả loạt." />
+
+<!-- ===== Google Analytics 4 (điền [GA4_ID] - trùng id bên thanh-toan.html để đo trọn phễu) ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[GA4_ID]"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','[GA4_ID]');</script>
+
+<!-- ===== Facebook Pixel (điền {{FB_PIXEL_ID}}) ===== -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+var PIXEL_ID='{{FB_PIXEL_ID}}';
+try{if(PIXEL_ID.indexOf('{{')<0){fbq('set','autoConfig',false,PIXEL_ID);fbq('init',PIXEL_ID);fbq('track','PageView');}}catch(e){}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* Tông XƯỞNG VIDEO AI: nền tối kiểu phòng dựng + cam đất. Trùng thanh-toan.html. */
+    --primary:#E2562B; --primary-d:#A63A18; --violet:#7C2D12;
+    --accent:#F5A524; --accent-d:#D97706;
+    --tint:#FEF0EA; --tint-2:#FCDCCF;
+    --hero-grad:linear-gradient(135deg,#111827 0%,#7C2D12 55%,#E2562B 100%);
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
+    --bg:#ffffff; --soft:#f8fafc; --soft2:#f1f5f9;
+    --ok:#16a34a; --radius:16px;
+    --shadow:0 10px 30px -12px rgba(15,23,42,.18);
+    --shadow-lg:0 24px 60px -20px rgba(124,45,18,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:hidden}
+  img{max-width:100%;height:auto}
+  body{font-family:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{width:100%;max-width:900px;margin:0 auto;padding:0 18px}
+  .narrow{max-width:760px}
+  h1,h2,h3{line-height:1.25;font-weight:800;letter-spacing:-.01em}
+  h2{font-size:clamp(23px,4vw,32px);margin-bottom:16px}
+  h3{font-size:clamp(18px,2.6vw,21px);font-weight:700;margin-bottom:8px}
+  p{color:var(--muted);margin-bottom:14px}
+  .center{text-align:center}
+  strong,b{color:var(--ink)}
+  section{padding:clamp(38px,6vw,64px) 0}
+  section.alt{background:var(--soft)}
+
+  /* ===== HERO ===== */
+  .hero{background:var(--hero-grad);color:#fff;padding:clamp(44px,7vw,76px) 0 clamp(38px,6vw,60px)}
+  .hero .eyebrow{display:inline-block;font-size:13px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:#FCDCCF;border:1.5px solid rgba(255,255,255,.35);padding:6px 14px;border-radius:999px;margin-bottom:18px}
+  .hero h1{font-size:clamp(28px,5.4vw,46px);color:#fff;margin-bottom:18px}
+  .hero .lead{color:#FCDCCF;font-size:clamp(17px,2.4vw,20px);margin-bottom:8px}
+  .hero .tach{background:rgba(0,0,0,.22);border-left:4px solid var(--accent);padding:13px 16px;border-radius:10px;margin:20px auto 22px;max-width:640px;color:#fff;font-weight:600}
+  .hero .meta{color:#FCDCCF;font-size:15.5px;margin-bottom:26px}
+  .btn{display:inline-block;background:var(--accent);color:#111827;font-weight:800;font-size:clamp(16px,2.2vw,19px);padding:16px 34px;border-radius:12px;text-decoration:none;box-shadow:0 10px 26px -10px rgba(0,0,0,.5);border:none;cursor:pointer}
+  .btn:hover{background:var(--accent-d);color:#fff}
+  .btn-wide{display:block;width:100%;text-align:center}
+
+  /* ===== khối chung ===== */
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:clamp(20px,3vw,28px);box-shadow:var(--shadow);margin-bottom:18px}
+  .eyebrow-s{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary);background:var(--tint);padding:5px 12px;border-radius:999px;margin-bottom:14px}
+  ul{margin:0 0 14px 20px}
+  li{margin-bottom:9px;color:var(--muted)}
+  li b{color:var(--ink)}
+  .big{font-size:clamp(19px,2.8vw,23px);font-weight:700;color:var(--ink);line-height:1.5}
+  .quote{border-left:4px solid var(--primary);background:var(--tint);padding:14px 18px;border-radius:0 12px 12px 0;margin:18px 0;color:var(--ink);font-weight:600}
+
+  /* ===== chương ===== */
+  .chap{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;margin-bottom:16px;background:#fff;box-shadow:var(--shadow)}
+  .chap-head{background:var(--soft2);padding:16px 20px;border-bottom:1px solid var(--line)}
+  .chap-head .n{font-size:12.5px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--primary)}
+  .chap-head h3{margin:4px 0 0}
+  .chap-body{padding:18px 20px}
+  .chap-got{background:var(--tint);border-radius:10px;padding:12px 14px;margin-top:12px;font-weight:600;color:var(--ink);font-size:15.5px}
+  .chap-img{margin-top:14px}
+
+  /* ===== bảng ===== */
+  .tbl-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-bottom:16px}
+  table{width:100%;border-collapse:collapse;min-width:520px;background:#fff}
+  th,td{padding:12px 14px;border:1px solid var(--line);text-align:left;font-size:15.5px;vertical-align:top}
+  th{background:var(--soft2);font-weight:700;color:var(--ink)}
+  td{color:var(--muted)}
+  td b{color:var(--ink)}
+
+  /* ===== giảng viên ===== */
+  .gv{display:flex;gap:26px;align-items:flex-start;flex-wrap:wrap}
+  .gv-img{flex:0 0 240px;max-width:100%}
+  .gv-img img{border-radius:14px;box-shadow:var(--shadow)}
+  .gv-txt{flex:1 1 340px;min-width:0}
+  .badge-bni{width:130px;margin-top:14px}
+
+  /* ===== form ===== */
+  .form-box{background:#fff;border:2px solid var(--primary);border-radius:var(--radius);padding:clamp(22px,3.4vw,32px);box-shadow:var(--shadow-lg);max-width:520px;margin:0 auto}
+  .form-box h3{text-align:center;font-size:clamp(20px,3vw,25px);margin-bottom:6px}
+  .form-box .sub{text-align:center;font-size:15px;margin-bottom:18px}
+  .price-row{text-align:center;margin:0 0 20px}
+  .price{font-size:clamp(34px,6vw,46px);font-weight:800;color:var(--primary);line-height:1.1}
+  .price-note{font-size:14.5px;color:var(--muted);margin-top:4px}
+  input{width:100%;border:1.5px solid var(--line);border-radius:11px;padding:14px;font-size:16px;font-family:inherit;margin-bottom:11px}
+  input:focus{outline:none;border-color:var(--primary)}
+  .hidden{display:none}
+  .form-foot{text-align:center;font-size:14px;color:var(--muted);margin-top:14px}
+
+  /* ===== hỏi đáp ===== */
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden}
+  summary{padding:15px 18px;font-weight:700;cursor:pointer;list-style:none;color:var(--ink);font-size:16.5px}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';float:right;color:var(--primary);font-weight:800;font-size:20px;line-height:1}
+  details[open] summary::after{content:'-'}
+  .ans{padding:0 18px 17px;color:var(--muted)}
+  .ans p{margin-bottom:11px}
+  .ans p:last-child{margin-bottom:0}
+
+  footer{background:#111827;color:#cbd5e1;padding:34px 0;text-align:center;font-size:15px}
+  footer b{color:#fff}
+  footer a{color:var(--accent);text-decoration:none}
+
+  @media (max-width:640px){
+    body{font-size:16px}
+    .gv-img{flex:1 1 100%;max-width:220px;margin:0 auto}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ KHỐI 1 - HERO ============ -->
+<header class="hero">
+  <div class="wrap center">
+    <span class="eyebrow">Xưởng Video AI</span>
+    <h1>Video bạn đã quay xong.<br>Để AI dựng thành cả tháng nội dung.</h1>
+    <div class="tach">Bạn mang video mình đã quay vào. Đây là khóa hậu kỳ, không phải khóa để AI tự sinh video từ con số 0.</div>
+    <p class="lead">Một bộ máy dựng video chạy ngay trên máy tính của bạn. Bạn ra lệnh bằng lời. Nó cắt, nó gắn phụ đề, nó làm đúng gu thương hiệu của bạn, và nó làm cả loạt cùng lúc.</p>
+    <p class="meta">Một buổi quay hai tiếng ra 10 đến 15 video đăng được. 7 chương, 32 bài quay sẵn, kèm buổi Zoom gỡ vướng trực tiếp với Lê Thanh Sơn.</p>
+    <a href="#dangky" data-cta class="btn">Đăng ký Xưởng Video AI - 868.000đ</a>
+  </div>
+</header>
+
+<!-- ============ KHỐI 2 - NỖI ĐAU ============ -->
+<section>
+  <div class="wrap narrow">
+    <h2>Ổ cứng của bạn đang chứa bao nhiêu video chưa bao giờ được đăng?</h2>
+    <p>Buổi livestream tháng trước. Buổi hội thảo bạn đứng nói hai tiếng. Video sự kiện. Buổi quay sản phẩm. Buổi bạn ngồi chia sẻ với khách hàng.</p>
+    <p>Quay thì xong rồi. Nội dung thì hay thật.</p>
+    <p class="big">Nhưng nó vẫn nằm im ở đó.</p>
+    <p>Vì để đăng được, bạn còn phải cắt. Phải chọn đoạn. Phải gắn phụ đề. Phải cắt bỏ chỗ ngập ngừng. Phải xuất ba tỉ lệ khung cho ba nền tảng.</p>
+    <p>Và bạn thì không có thời gian.</p>
+    <p>Bạn ngồi xuống định dựng "một chút thôi". Ba tiếng sau bạn ngẩng lên, mới xong đúng một clip. Trong khi lịch đăng tuần này còn năm bài đang trống.</p>
+    <p>Bạn biết rõ mình cần ra video đều. Bạn biết rõ nội dung mình đang có là tốt. <b>Bạn không thiếu nội dung, bạn chỉ thiếu thời gian để cắt nó ra.</b></p>
+    <div class="quote">Vấn đề không nằm ở khâu quay. Nó nằm ở khâu sau khi quay. Và tuần nào cũng lặp lại y như tuần trước.</div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 3 - VÌ SAO CÁCH CŨ THẤT BẠI ============ -->
+<section class="alt">
+  <div class="wrap narrow">
+    <h2>Ba cách bạn đã thử. Cách nào cũng đưa bạn về chỗ cũ.</h2>
+
+    <div class="card">
+      <h3>Cách thứ nhất: tự ngồi cắt bằng phần mềm dựng phim</h3>
+      <p>Phần mềm miễn phí có sẵn. Nó làm được. Vấn đề không phải nó làm được hay không, vấn đề là <b>bạn phải ngồi</b>.</p>
+      <p>Ngồi tua đi tua lại tìm chỗ cắt, kéo từng đoạn, sửa từng dòng phụ đề máy nghe sai. Một buổi livestream hai tiếng, cắt ra mười clip tử tế, bạn mất trọn một ngày làm việc.</p>
+      <p>Bạn là người chủ. Một ngày của bạn không nên trôi vào đó.</p>
+    </div>
+
+    <div class="card">
+      <h3>Cách thứ hai: thuê người dựng</h3>
+      <p>Giá tham khảo phổ biến ngoài thị trường là 1 đến 3 triệu cho một video. Nhưng tiền chưa phải chỗ đau nhất. Chỗ đau nhất là <b>bạn phải mô tả</b>.</p>
+      <p>Mô tả bạn muốn cắt đoạn nào. Mô tả bạn muốn màu chữ gì. Nhận bản một, không đúng ý, mô tả lại. Nhận bản hai, phụ đề sai tên sản phẩm, mô tả lại. Ba ngày sau mới có bản dùng được.</p>
+      <p>Tháng sau bạn thuê người khác. Bạn lại mô tả lại từ đầu tất cả những thứ đó. <b>Không ai nhớ giùm bạn gu của bạn.</b></p>
+    </div>
+
+    <div class="card">
+      <h3>Cách thứ ba: phần mềm cắt clip tự động</h3>
+      <p>Bạn đổ video dài vào, nó nhả ra mấy chục clip ngắn. Nhưng nó nhắm vào clip 30 đến 60 giây dễ lan truyền, không nhắm vào nội dung bạn đang giảng.</p>
+      <p><b>Nó không hiểu bạn đang nói gì.</b></p>
+      <p>Bạn giảng một quy trình bốn bước trong mười hai phút. Nó cắt đứt ở phút thứ ba, giữa bước hai, vì chỗ đó bạn nói to. Bạn nhận về một clip cụt.</p>
+      <p>Việc bạn cần là cắt buổi nói chuyện hai tiếng thành mười hai bài, mỗi bài trọn một chủ đề, đúng ranh giới ý, đặt tên đúng theo nội dung bên trong. Đó là việc khác hẳn. Không có nút nào bấm ra được việc đó. Bạn không cần thêm một cái nút. Bạn cần một người hiểu bạn đang nói gì.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 4 - LỐI RA ============ -->
+<section>
+  <div class="wrap narrow">
+    <h2>Cách thứ tư: có một người thợ dựng làm việc ngay trong máy tính của bạn</h2>
+    <p>Cách này khác hẳn ba cách trên, và nó không đòi bạn phải giỏi dựng phim.</p>
+    <p>Bạn dựng một bộ máy dựng video ngay trên máy tính của mình. Một trợ lý AI ngồi trong máy bạn, nắm được đồ nghề cắt ghép, và làm theo lời bạn nói.</p>
+    <p>Bạn không đi tìm nút nữa. Bạn ra lệnh bằng tiếng Việt, đúng như cách bạn dặn một người thợ dựng:</p>
+    <div class="quote">"Cắt video này thành các clip theo chủ đề, mỗi clip trọn một ý, đừng cắt ngang câu."<br><br>"Gắn phụ đề, dùng font và màu thương hiệu của tôi."<br><br>"Chạy y như vậy cho cả hai mươi video trong thư mục này."</div>
+    <p class="big">Người khác ngồi cắt cả ngày. Bạn gõ một câu rồi đứng dậy đi làm việc khác.</p>
+    <p>Khác biệt nằm ở ba chỗ.</p>
+    <div class="card">
+      <h3>Nó hiểu nội dung, không đoán theo âm lượng</h3>
+      <p>Toàn bộ lời nói trong video được bóc thành bản chữ có mốc thời gian tới từng từ. Máy đọc bản chữ đó rồi mới quyết định cắt ở đâu. Nó cắt theo ý, không cắt theo đồng hồ.</p>
+    </div>
+    <div class="card">
+      <h3>Nó nhớ gu của bạn</h3>
+      <p>Bạn khai màu, font, cách nhìn của thương hiệu một lần. Từ đó về sau nó tự làm đúng. Không phải mô tả lại lần nào nữa.</p>
+    </div>
+    <div class="card">
+      <h3>Nó làm cả loạt</h3>
+      <p>Một lệnh chạy hai mươi video. Bạn đi làm việc khác. Quay lại thì xong.</p>
+    </div>
+    <p class="big center">Bộ máy này nằm trên máy tính của bạn. Dạy một lần, nó nhớ mãi.</p>
+  </div>
+</section>
+
+<!-- ============ KHỐI 5 - LỢI ÍCH ============ -->
+<section class="alt">
+  <div class="wrap narrow">
+    <h2>Học xong, bạn làm được những việc này</h2>
+    <p>Không phải kỹ năng chung chung. Là những việc cụ thể bạn làm được ngay tuần sau.</p>
+    <ul>
+      <li><b>Một video dài của bạn ra 10 đến 15 clip gọn.</b> Mỗi clip trọn một ý, đăng được ngay, không cụt câu giữa chừng.</li>
+      <li><b>Một buổi livestream hai tiếng thành cả tháng bài đăng.</b> Nội dung bạn đã nói rồi. Việc còn lại là cắt lại cho đúng cách.</li>
+      <li><b>Một bộ hồ sơ thương hiệu khai một lần, dùng mãi.</b> Màu, font, kiểu phụ đề, cách trình bày. Lần sau ra lệnh, máy tự làm đúng gu.</li>
+      <li><b>Một lệnh chạy cả loạt.</b> Hai mươi video xử một lượt, không ngồi bấm hai mươi lần.</li>
+      <li><b>Ba tỉ lệ khung xuất cùng lúc.</b> Khung dọc, khung vuông, khung ngang. Không phải dựng lại ba lần cho ba nền tảng.</li>
+      <li><b>Video cũ được dùng lại.</b> Những buổi quay từ năm ngoái đang nằm im, lọc ra đoạn còn bán được, cắt thành clip mới.</li>
+      <li><b>Lời chứng khách hàng thành clip sạch.</b> Cắt gọn, bỏ ngập ngừng, đủ sức thuyết phục người đang phân vân.</li>
+      <li><b>Một quy trình chạy lại được.</b> Đóng cách làm của bạn thành khuôn. Đủ để nhận việc cho khách, hoặc gánh mảng video của công ty mình.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ KHỐI 6 - CẢM XÚC ============ -->
+<section>
+  <div class="wrap narrow">
+    <h2>Thứ Hai tuần sau của bạn sẽ như thế này</h2>
+    <p>Tám giờ sáng. Bạn mở máy, uống cà phê. Cuối tuần bạn vừa quay xong một buổi chia sẻ dài hai tiếng. File nằm trong thư mục.</p>
+    <p>Bạn gõ một câu: cắt buổi này thành các bài theo chủ đề, gắn phụ đề theo bộ thương hiệu của tôi, xuất khung dọc và khung ngang.</p>
+    <p>Rồi bạn đứng dậy đi họp khách, gọi cho đối tác, làm việc của một người chủ.</p>
+    <p><b>Mười một giờ bạn quay lại bàn.</b></p>
+    <p>Mười bốn clip nằm sẵn trong thư mục. Có phụ đề. Đúng màu của bạn. Đúng font của bạn. Tên file đọc là biết clip nào nói về gì.</p>
+    <p>Bạn xem qua ba clip. Được. Bạn đăng. Chiều bạn ngồi lại mười lăm phút, dồn nốt cả tháng nội dung vào lịch đăng. Rồi bạn tắt máy.</p>
+    <p>Không còn buổi tối nào ngồi tua video tới mười một giờ đêm, không còn tin nhắn giục người dựng, cũng không còn cảm giác lịch đăng trống mà mình thì đang chạy sau.</p>
+    <div class="quote">Video bạn quay không còn nằm im nữa. Tuần nào cũng có bài mới để đăng. Và cách làm đó là của bạn, nằm trên máy bạn, không phụ thuộc vào việc thuê được ai.</div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 7 - GIÁO TRÌNH ============ -->
+<section class="alt">
+  <div class="wrap">
+    <div class="center">
+      <h2>7 chương, 32 bài video quay sẵn</h2>
+      <p>Học lúc nào cũng được. Xem lại bao nhiêu lần cũng được.</p>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 0</span><h3>Cài đặt bộ máy trên máy tính của bạn</h3></div>
+      <div class="chap-body">
+        <p>Phần khó nhất nằm ở đây, nên nó được dạy kỹ nhất khóa. Mỗi bài cài đúng một thứ, cài xong thử ngay tại chỗ. Hỏng chỗ nào bạn biết ngay chỗ đó, không phải ôm cả đống rồi ngồi đoán.</p>
+        <div class="chap-got">Qua chương này bạn có: một bộ máy dựng video chạy được trên máy mình, đã tự tay thử và thấy ra file.</div>
+        <div class="chap-img"><!-- ảnh: màn hình đã cài xong, các bước lần lượt có dấu tích xanh --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 1</span><h3>Cắt được clip đầu tiên ngay hôm nay</h3></div>
+      <div class="chap-body">
+        <p>Bạn không phải học hết khóa mới thấy kết quả. Ngay chương này đã có clip đăng được. Và bạn hiểu vì sao máy cắt theo câu chứ không cắt theo đồng hồ, nên nó bám ranh giới câu chứ không cắt giữa lời bạn đang nói.</p>
+        <div class="chap-got">Qua chương này bạn có: một clip hoàn chỉnh do chính tay bạn cắt, nghe liền mạch.</div>
+        <div class="chap-img"><!-- ảnh: bên trái file video dài hai tiếng, bên phải một clip ngắn gọn gàng --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 2</span><h3>Một video dài thành cả tháng nội dung</h3></div>
+      <div class="chap-body">
+        <p>Chương trục của khóa. Buổi livestream, buổi hội thảo, video sự kiện đang nằm im trong ổ cứng sẽ được cắt thành loạt clip, mỗi clip trọn một ý, đăng được ngay.</p>
+        <div class="chap-got">Qua chương này bạn có: 10 đến 15 clip từ một video dài của chính bạn.</div>
+        <div class="chap-img"><!-- ảnh: một file video lớn ở giữa, tỏa ra nhiều clip nhỏ xung quanh --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 3</span><h3>Video ra đúng chất của bạn</h3></div>
+      <div class="chap-body">
+        <p>Đây là chỗ khác biệt lớn nhất so với mọi phần mềm cắt tự động. Bạn khai màu, font, cách trình bày của thương hiệu một lần. Từ đó máy tự làm đúng gu, không phải dặn lại lần nào nữa.</p>
+        <div class="chap-got">Qua chương này bạn có: bộ khuôn riêng của thương hiệu, dùng mãi về sau.</div>
+        <div class="chap-img"><!-- ảnh: cùng một clip đặt cạnh nhau, bản mộc và bản đã có phụ đề đúng màu thương hiệu --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 4</span><h3>Làm cả loạt trong một lệnh</h3></div>
+      <div class="chap-body">
+        <p>Có hai mươi video cần xử thì không ngồi bấm hai mươi lần. Một lệnh chạy hết, và xuất luôn nhiều tỉ lệ khung cho từng nền tảng, khỏi dựng lại ba lần.</p>
+        <div class="chap-got">Qua chương này bạn có: loạt video sẵn sàng đăng, có sẵn đường dẫn để gắn vào trang.</div>
+        <div class="chap-img"><!-- ảnh: một thư mục đầy video đang được xử lý cùng lúc --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 5</span><h3>Lấy thêm nội dung bán hàng từ video cũ</h3></div>
+      <div class="chap-body">
+        <p>Những buổi quay từ năm ngoái đang nằm im vẫn còn bán được. Chương này dạy cách lọc ra đoạn còn giá trị và cắt thành clip bán hàng, không phải quay thêm buổi nào.</p>
+        <div class="chap-got">Qua chương này bạn có: bộ clip bán hàng lấy hoàn toàn từ kho sẵn có.</div>
+        <div class="chap-img"><!-- ảnh: ổ cứng cũ bên trái, loạt clip bán hàng bên phải --></div>
+      </div>
+    </div>
+
+    <div class="chap">
+      <div class="chap-head"><span class="n">Chương 6</span><h3>Nhận dựng video cho người khác</h3></div>
+      <div class="chap-body">
+        <p>Dành cho freelancer muốn nhận việc, và nhân viên muốn gánh nổi mảng video của công ty. Đóng cách làm của bạn thành quy trình chạy lại được, nhận nhiều việc cùng lúc mà không vỡ tiến độ.</p>
+        <div class="chap-got">Qua chương này bạn có: quy trình riêng, đủ để nhận việc thật hoặc gánh mảng video trong công ty.</div>
+        <div class="chap-img"><!-- ảnh: sơ đồ quy trình các bước nhận việc và trả hàng --></div>
+      </div>
+    </div>
+
+    <p class="center"><b>Tổng: 7 chương, 32 bài. Đề cương chi tiết từng bài gửi kèm khi bạn vào lớp.</b></p>
+  </div>
+</section>
+
+<!-- ============ KHỐI 8 - GIẢNG VIÊN ============ -->
+<section>
+  <div class="wrap">
+    <h2 class="center">Người dạy</h2>
+    <div class="gv">
+      <div class="gv-img">
+        <img src="assets/giang-vien.jpg" alt="Lê Thanh Sơn, chuyên gia và diễn giả đào tạo ứng dụng AI cho doanh nghiệp" />
+        <img src="assets/logo-bni-proud-member.png" alt="Thành viên BNI" class="badge-bni" />
+      </div>
+      <div class="gv-txt">
+        <h3>Lê Thanh Sơn</h3>
+        <p>Chuyên gia và diễn giả đào tạo ứng dụng AI cho doanh nghiệp.</p>
+        <p><b>Tôi không dạy cái tôi đọc được. Tôi dạy cái tôi đang dùng hằng ngày cho công việc của chính mình.</b></p>
+        <p>Đây là những việc thật tôi đã làm bằng đúng bộ máy tôi sắp dạy bạn:</p>
+        <ul>
+          <li>Một buổi dạy trực tuyến dài <b>2 tiếng 12 phút</b>, tôi đưa vào máy, cắt thành <b>14 bài học</b> riêng, mỗi bài trọn một chủ đề, đặt tên theo giáo trình. Toàn bộ 14 bài đó đang nằm trên trang học của học viên tôi.</li>
+          <li>Cắt <b>6 video lời chứng</b> của học viên thành clip sạch, dùng cho việc bán hàng của mình.</li>
+          <li>Dựng <b>4 dự án video</b> bằng công cụ tự động, kèm giọng đọc tạo bằng AI.</li>
+          <li>Tự tay tinh chỉnh <b>3 bộ công cụ riêng cho việc của mình</b>, để chúng bám đúng cách tôi ngắt câu và đặt tên bài.</li>
+        </ul>
+        <p>Và tôi chạy toàn bộ việc này <b>trên máy Windows</b>. Nên tôi biết đúng những chỗ máy Windows hay hỏng lúc cài, và biết cách gỡ. Chương 0 của khóa này ra đời từ đó.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 9 - CẢM NHẬN HỌC VIÊN (chờ bổ sung) ============ -->
+
+
+<!-- ============ KHỐI 10 - TRƯỚC VÀ SAU ============ -->
+<section class="alt">
+  <div class="wrap">
+    <h2 class="center">Việc của bạn thay đổi thế nào</h2>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:26%"></th><th style="width:37%">Bây giờ</th><th style="width:37%">Sau khi học</th></tr>
+        <tr><td><b>Một video dài quay xong</b></td><td>Nằm trong ổ cứng, chờ lúc rảnh</td><td>Sáng ra lệnh, trưa có 10 đến 15 clip</td></tr>
+        <tr><td><b>Thời gian dựng một buổi live</b></td><td>Gần trọn một ngày làm việc</td><td>Bạn đi làm việc khác, quay lại thì xong</td></tr>
+        <tr><td><b>Gu thương hiệu</b></td><td>Mỗi lần thuê lại phải mô tả từ đầu</td><td>Khai một lần, máy nhớ mãi</td></tr>
+        <tr><td><b>20 video cần xử</b></td><td>Ngồi làm 20 lần</td><td>Một lệnh, chạy cả loạt</td></tr>
+        <tr><td><b>Ba nền tảng ba tỉ lệ khung</b></td><td>Dựng lại ba lần</td><td>Xuất cùng lúc</td></tr>
+        <tr><td><b>Chi phí mỗi video</b></td><td>1 đến 3 triệu nếu thuê ngoài</td><td>Tiền điện và phí công cụ</td></tr>
+        <tr><td><b>Kho video cũ</b></td><td>Nằm im, chưa ra thêm đồng nào</td><td>Nguồn nội dung để dùng dần</td></tr>
+        <tr><td><b>Lịch đăng tuần này</b></td><td>Trống, và bạn đang chạy sau</td><td>Đã dồn sẵn cả tháng</td></tr>
+        <tr><td><b>Khi cần sửa gấp</b></td><td>Nhắn người dựng, chờ ba ngày</td><td>Bạn tự làm trong mười lăm phút</td></tr>
+        <tr><td><b>Cái bạn sở hữu</b></td><td>Không có gì. Trả tiền xong là hết</td><td>Một bộ máy dựng video nằm trên máy bạn</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 11 - NEO GIÁ ============ -->
+<section>
+  <div class="wrap narrow">
+    <h2>Làm một phép tính trước khi quyết</h2>
+    <p>Thuê dựng ngoài, giá tham khảo phổ biến trên thị trường là 1 đến 3 triệu cho một video.</p>
+    <p><b>Bạn có bao nhiêu video dài đang nằm im?</b></p>
+    <p>Chỉ cần bạn xử lý một video duy nhất, tiền thuê ngoài đã ngang hoặc hơn học phí trọn khóa này. Xử lý video thứ hai, bạn đã lời. Xử lý video thứ mười, bạn giữ lại được số tiền bằng cả chục lần học phí.</p>
+    <p>Và đó mới là tính theo số video. Chưa tính chuyện một buổi livestream hai tiếng cắt ra được mười mấy clip, mỗi clip là một bài đăng.</p>
+    <h3>Khác biệt lớn nhất không nằm ở tiền</h3>
+    <p>Thuê ngoài: trả tiền xong, bạn nhận về file. Tháng sau cần nữa, lại trả tiền, lại mô tả lại từ đầu.</p>
+    <p>Học xong khóa này: bạn có một bộ máy dựng video nằm trên máy mình. Dùng bao nhiêu lần cũng được. Nó nhớ gu của bạn. Nó không nghỉ việc, không tăng giá, không bắt bạn chờ ba ngày.</p>
+    <div class="quote">Thuê ngoài, bạn trả tiền để có một video. Học xong, bạn trả một lần để có mọi video sau này.</div>
+    <p class="center" style="margin-top:16px">Học phí trọn khóa <b>868.000đ</b>. Chưa bằng tiền thuê dựng một video.</p>
+  </div>
+</section>
+
+<!-- ============ KHỐI 12 - VÌ SAO ĐĂNG KÝ SỚM ============ -->
+<section class="alt">
+  <div class="wrap narrow">
+    <h2>Vì sao nên vào sớm</h2>
+    <p>32 bài video đã quay sẵn. Bạn học lúc nào cũng được, xem lại bao nhiêu lần cũng được. Phần này không giới hạn.</p>
+    <p class="big">Chỗ có giới hạn là buổi Zoom gỡ vướng.</p>
+    <p>Buổi này tôi dạy trực tiếp, ngồi cùng lớp, tập trung vào Chương 0. Vì đó là chỗ chính tôi mất nhiều thời gian nhất lúc tự cài. Tên thư mục có dấu tiếng Việt, thiếu quyền, gõ sai một dấu, tôi vấp đủ cả. Máy mỗi người một kiểu nên lỗi cũng mỗi người một khác.</p>
+    <p>Những lỗi đó, gỡ qua Zoom thường mất vài phút. Ngồi mò một mình thì có thể mất cả buổi tối, và đó là chỗ dễ bỏ cuộc nhất.</p>
+    <p>Tôi ngồi được với bao nhiêu người một buổi thì tôi nhận bấy nhiêu. Vào lớp sớm thì bạn vào đúng buổi Zoom gần nhất. Vào muộn thì chờ buổi sau.</p>
+    <h3>Còn một lý do nữa, nằm ở phía bạn</h3>
+    <p>Kho video của bạn đang mỗi tuần một dày thêm. Bạn vẫn quay đều. Nhưng số video chưa đăng thì cứ tăng.</p>
+    <p>Bắt đầu tháng này, tháng sau bạn đã có lịch đăng đầy. Để tới cuối năm, kho vẫn nằm đó, và nó dày gấp đôi.</p>
+  </div>
+</section>
+
+<!-- ============ KHỐI 13 - QUÀ TẶNG ============ -->
+<section>
+  <div class="wrap narrow">
+    <h2 class="center">Bốn món đi kèm khóa học</h2>
+    <p class="center">Mỗi món giải quyết đúng một khó khăn người học hay gặp.</p>
+    <div class="card"><h3>Bộ lệnh mẫu copy dán sẵn theo từng bài</h3><p>Dành cho lúc bạn biết phải làm gì nhưng không biết gõ câu lệnh thế nào. Mỗi bài học có sẵn câu lệnh mẫu. Bạn copy, dán, đổi tên file của mình vào là chạy.</p></div>
+    <div class="card"><h3>Ba bộ khuôn hiệu ứng mẫu, đổi màu là dùng được</h3><p>Dành cho người thấy mình không có khiếu thẩm mỹ, không biết làm sao cho đẹp. Ba bộ khuôn dựng sẵn phần trình bày, gửi kèm khi lớp khai giảng. Bạn thay màu và font thương hiệu của mình vào là ra video của mình.</p></div>
+    <div class="card"><h3>Danh sách lỗi hay gặp lúc cài, kèm cách gỡ</h3><p>Dành cho lúc cài hỏng giữa chừng mà không biết hỏi ai. Danh sách rút từ những lỗi tôi đã tự gặp và đã gỡ trên máy thật.</p></div>
+    <div class="card"><h3>Nhóm hỗ trợ chung</h3><p>Dành cho lúc làm một mình thấy nản và muốn bỏ. Chỗ để hỏi khi vướng, và để xem người khác đang làm ra gì.</p></div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 15 - ĐIỀU KIỆN VÀ GIỚI HẠN ============ -->
+<section class="alt">
+  <div class="wrap narrow">
+    <h2>Trước khi bạn đăng ký, đọc kỹ bốn điều này</h2>
+    <div class="card">
+      <h3>1. Bạn cần một máy tính. Windows hoặc Mac đều được</h3>
+      <p>Khóa này không học và không làm được trên điện thoại. Xưởng nằm trên máy tính.</p>
+    </div>
+    <div class="card">
+      <h3>2. Bạn cần trả phí trợ lý AI và phí bóc tiếng</h3>
+      <p>Đây không phải bộ công cụ hoàn toàn miễn phí. Hai khoản phí này trả cho bên cung cấp dịch vụ, tách rời khỏi học phí. Trong Chương 0 có một bài riêng dạy bạn cách biết trước mỗi video tốn bao nhiêu.</p>
+    </div>
+    <div class="card">
+      <h3>3. Bạn cần có sẵn video đã quay</h3>
+      <p>Đây là điều kiện quan trọng nhất. Khóa này dạy hậu kỳ, bắt đầu từ lúc bạn đã có file video trong máy. Khóa không dạy quay, cũng không dạy cách để AI tự sinh ra video từ con số 0. Nếu bạn chưa có video nào và đang tìm cách để AI làm video hộ, đây không phải khóa dành cho bạn.</p>
+    </div>
+    <div class="card">
+      <h3>4. Bộ công cụ nền hiện dùng bản mã nguồn mở sẵn có</h3>
+      <p>Tôi có kế hoạch làm một bộ riêng cho cộng đồng học viên về sau. Vì vậy phần quy trình trong khóa được viết tách rời khỏi phần công cụ. Khi công cụ thay đổi, cách làm bạn học được vẫn dùng nguyên.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ KHỐI 14 - BẢNG TỔNG GIÁ TRỊ + GIÁ + FORM ============ -->
+<section>
+  <div class="wrap">
+    <h2 class="center">868.000đ này gồm những gì</h2>
+    <div class="tbl-wrap">
+      <table>
+        <tr><th style="width:46%">Bạn nhận</th><th style="width:54%">Nếu không có nó, bạn phải làm gì</th></tr>
+        <tr><td><b>Chương 0</b> - 8 bài cài đặt cầm tay, mỗi bài một thứ, thử ngay tại chỗ</td><td>Mò một mình nhiều buổi tối, hoặc bỏ cuộc ngay cửa đầu tiên</td></tr>
+        <tr><td><b>Chương 1 và 2</b> - 10 bài cắt video dài thành loạt clip theo chủ đề</td><td>Thuê ngoài 1 đến 3 triệu cho mỗi video dài, nhân với số video bạn đang có</td></tr>
+        <tr><td><b>Chương 3</b> - 5 bài dạy máy nhớ gu thương hiệu của bạn</td><td>Mỗi lần thuê người mới là mô tả lại từ đầu, nhận về bản không đúng ý, sửa tới sửa lui</td></tr>
+        <tr><td><b>Chương 4</b> - 3 bài làm hàng loạt và xuất nhiều tỉ lệ khung</td><td>Ngồi bấm từng video một, rồi dựng lại ba lần cho ba nền tảng</td></tr>
+        <tr><td><b>Chương 5</b> - 3 bài lấy thêm nội dung bán hàng từ video cũ</td><td>Video cũ tiếp tục nằm im, không ra thêm đồng nào</td></tr>
+        <tr><td><b>Chương 6</b> - 3 bài dạy nhận việc dựng video cho khách</td><td>Không nhận được việc video, hoặc không gánh nổi mảng video của công ty</td></tr>
+        <tr><td><b>Buổi Zoom gỡ vướng trực tiếp</b></td><td>Tắc ở đâu là dừng ở đó</td></tr>
+        <tr><td><b>Bộ lệnh mẫu copy dán sẵn</b></td><td>Ngồi nghĩ cách diễn đạt cho máy hiểu</td></tr>
+        <tr><td><b>Ba bộ khuôn hiệu ứng</b></td><td>Tự mò phần trình bày, hoặc thuê thiết kế</td></tr>
+        <tr><td><b>Danh sách lỗi tra nhanh</b>, dạng bảng tra ngoài bài học</td><td>Tra cứu lung tung mỗi lần máy báo lỗi</td></tr>
+        <tr><td><b>Nhóm hỗ trợ chung</b></td><td>Làm một mình, vướng là nản</td></tr>
+      </table>
+    </div>
+    <p class="center">Chỉ cần bạn có 5 video dài cần xử lý, thuê ngoài theo giá tham khảo phổ biến 1 đến 3 triệu một video, con số đã là 5 đến 15 triệu. Và trả xong lần đó thì hết, lần sau lại trả tiếp.</p>
+
+    <div class="price-row" style="margin-top:30px">
+      <div class="price">868.000đ</div>
+      <div class="price-note">Trả một lần. Học trọn 32 bài. Bộ máy này thuộc về bạn, dùng bao nhiêu lần cũng được.<br><b>Ngoài học phí, bạn cần trả phí trợ lý AI và phí bóc tiếng cho bên cung cấp dịch vụ.</b> Chương 0 có bài dạy tính trước mỗi video tốn bao nhiêu.</div>
+    </div>
+
+    <!-- ===== FORM THU LEAD ===== -->
+    <form id="dangky" onsubmit="return leadDone(event)" class="form-box">
+      <h3>Đăng ký Xưởng Video AI</h3>
+      <p class="sub">Điền thông tin để giữ chỗ. Bấm xong bạn được chuyển sang trang thanh toán có mã QR.</p>
+      <input name="ten" required placeholder="Họ và tên" />
+      <input name="sdt" required placeholder="Số điện thoại / Zalo" />
+      <input name="email" type="email" placeholder="Email" />
+      <input type="text" name="company" class="hidden" tabindex="-1" autocomplete="off" />
+      <button class="btn btn-wide" type="submit">Đăng ký giữ chỗ - 868.000đ</button>
+      <p class="form-foot">Thông tin của bạn được bảo mật.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ============ KHỐI 16 - HỎI ĐÁP ============ -->
+<section class="alt">
+  <div class="wrap narrow">
+    <h2 class="center">Những câu hỏi hay gặp</h2>
+
+    <details><summary>Có phần mềm bấm một nút làm được rồi, sao phải học?</summary><div class="ans">
+      <p>Câu hỏi đúng chỗ. Trả lời thẳng: phần mềm bấm một nút làm được một việc, và đó không phải việc của bạn.</p>
+      <p>Các phần mềm cắt clip tự động được xây để tìm đoạn dễ lan truyền. Nó cắt ra clip 30 đến 60 giây để ném lên mạng xã hội, và làm việc đó tốt. Nhưng nó không đọc nội dung bạn nói.</p>
+      <p>Bạn giảng một quy trình bốn bước trong mười hai phút. Nó cắt đứt ở bước hai vì chỗ đó bạn nói to. Việc bạn cần là cắt buổi nói chuyện hai tiếng thành mười hai bài, mỗi bài trọn một chủ đề, đúng ranh giới ý, đặt tên đúng theo nội dung. Không nút nào làm được việc đó.</p>
+      <p>Còn hai chỗ nữa phần mềm không làm được. Nó không nhớ gu riêng của bạn, mỗi lần dùng là mỗi lần bắt đầu lại. Và nó chỉ làm đúng những cái nút nó có.</p>
+      <p>Bộ máy của bạn thì khác: dạy một lần nhớ mãi, một lệnh chạy cả loạt, và làm được cả những việc lặt vặt quanh video mà không nút nào có sẵn.</p>
+    </div></details>
+
+    <details><summary>Tôi không rành máy tính, có theo nổi không?</summary><div class="ans">
+      <p>Đây chính là lý do Chương 0 có tới 8 bài, dài hơn mọi chương khác.</p>
+      <p>Cách dạy ở chương này: mỗi bài cài đúng một thứ, không cài hai thứ một lúc. Cài xong thử ngay tại chỗ, có cách kiểm rất cụ thể để bạn biết đã chạy hay chưa. Ví dụ gõ một dòng, thấy số hiện ra là đạt. Chào trợ lý một câu, nó trả lời là đạt.</p>
+      <p>Bạn không bao giờ phải ôm một đống cài đặt rồi ngồi đoán chỗ nào hỏng. Cuối chương có riêng một bài gỡ những lỗi hay gặp nhất.</p>
+      <p>Kèm theo còn ba lớp đỡ: bộ lệnh mẫu copy dán sẵn nên bạn không phải nghĩ cách gõ, danh sách lỗi tra là ra cách gỡ, và buổi Zoom trực tiếp tập trung đúng vào phần cài đặt.</p>
+      <p>Nói cho công bằng: bạn cần biết dùng máy tính ở mức cơ bản, mở thư mục, copy file, gõ theo hướng dẫn. Làm được những việc đó thì đi qua được Chương 0.</p>
+    </div></details>
+
+    <details><summary>Tôi chưa có video nào, học được không?</summary><div class="ans">
+      <p>Chưa nên. Khóa này bắt đầu từ lúc bạn đã có file video trong máy. Nó dạy hậu kỳ, không dạy quay. Bạn quay được vài buổi rồi hẵng quay lại đây.</p>
+    </div></details>
+
+    <details><summary>Tôi dùng Mac hay Windows đều được chứ?</summary><div class="ans">
+      <p>Cả hai đều được. Tôi chạy toàn bộ dây chuyền này trên Windows và dạy theo đúng đó. Người dùng Mac theo được, thao tác gần giống, nhưng tôi chưa quay riêng bản cho Mac. Điều duy nhất không làm được là học và làm trên điện thoại.</p>
+    </div></details>
+
+    <details><summary>Ngoài học phí còn phải trả thêm gì không?</summary><div class="ans">
+      <p>Có hai khoản, trả cho bên cung cấp dịch vụ chứ không phải trả cho tôi: phí trợ lý AI và phí bóc tiếng video. Trong Chương 0 có một bài riêng dạy cách tính trước mỗi video tốn bao nhiêu.</p>
+    </div></details>
+
+    <details><summary>Học xong mất bao lâu thì làm được?</summary><div class="ans">
+      <p>Ngay bài đầu của Chương 1, bạn đã cắt được một clip hoàn chỉnh và đăng được. Đó là thiết kế có chủ ý: thấy kết quả thật sớm.</p>
+      <p>Còn để chạy trọn một video dài của mình ra 10 đến 15 clip, bạn cần đi hết Chương 2. Nhanh chậm tùy bạn dành bao nhiêu thời gian, vì 32 bài đều quay sẵn.</p>
+    </div></details>
+
+    <details><summary>Buổi Zoom gỡ vướng diễn ra thế nào?</summary><div class="ans">
+      <p>Tôi dạy trực tiếp, ngồi cùng lớp, tập trung vào Chương 0. Bạn vướng ở đâu thì mang đúng chỗ đó lên hỏi. Những lỗi cài đặt gỡ qua Zoom thường mất vài phút, trong khi ngồi mò một mình có thể mất cả buổi tối. Số người mỗi buổi có giới hạn, vì đó là thời gian tôi ngồi thật.</p>
+    </div></details>
+
+    <details><summary>Tôi là nhân viên phụ trách video ở công ty, khóa này hợp không?</summary><div class="ans">
+      <p>Hợp, và Chương 6 được viết cho đúng trường hợp của bạn. Chương đó dạy cách đóng cách làm của bạn thành một quy trình chạy lại được, cách trả hàng đều tay, và cách nhận nhiều việc cùng lúc mà không vỡ tiến độ. Freelancer nhận việc cho khách cũng dùng đúng ba bài đó.</p>
+    </div></details>
+
+    <div class="center" style="margin-top:32px">
+      <p class="big" style="margin-bottom:18px">Kho video bạn đang có đủ cho cả năm nội dung. Việc còn lại chỉ là cắt nó ra.</p>
+      <a href="#dangky" data-cta class="btn">Đăng ký Xưởng Video AI - 868.000đ</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p><b>XƯỞNG VIDEO AI</b> - Video bạn đã quay, AI dựng thành cả tháng nội dung</p>
+    <p style="margin-top:6px">Lê Thanh Sơn - Chuyên gia và diễn giả đào tạo ứng dụng AI cho doanh nghiệp</p>
+    <p style="margin-top:6px">Cần hỗ trợ: Zalo <a href="https://zalo.me/0343928094">0343928094</a></p>
+  </div>
+</footer>
+
+<!-- ============ SCRIPT 1: chạy nền lúc tải trang (IP + thành phố + khách mới/quay lại) ============ -->
+<script>
+(function(){
+  try{var seen=localStorage.getItem('xva_visited');window.__ltsKhach=seen?'Quay lại':'Mới';localStorage.setItem('xva_visited','1');}catch(_){window.__ltsKhach='';}
+  try{fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){
+    if(!d||d.success===false)throw 0;
+    window.__ltsIP=d.ip||'';
+    window.__ltsViTri=d.region||d.city||'';
+  }).catch(function(){
+    try{fetch('https://api.ipify.org?format=json').then(function(r){return r.json();}).then(function(d){window.__ltsIP=(d&&d.ip)||'';}).catch(function(){});}catch(_){}
+  });}catch(_){}
+})();
+</script>
+
+<!-- ============ SCRIPT 2: submit = gửi 11 trường về Make + chuyển sang trang thanh toán ============ -->
+<script>
+// Gửi form-urlencoded (KHÔNG JSON.stringify) để Make tự tách trường con.
+// Đổi bộ trường -> bấm "Redetermine data structure" ở webhook Make rồi gửi 1 lead thử.
+function leadDone(e){e.preventDefault();var f=e.target;if(f.company&&f.company.value)return false;
+var ua=navigator.userAgent||'';
+var thiet_bi=(/iPad|Tablet|PlayBook|Silk/i.test(ua)||(/Android/i.test(ua)&&!/Mobile/i.test(ua)))?'Máy tính bảng':((/Mobi|iPhone|Android.*Mobile|Windows Phone/i.test(ua))?'Điện thoại':'Máy tính');
+var he_dh=/Windows NT/i.test(ua)?'Windows':(/Android/i.test(ua)?'Android':((/iPhone|iPad|iPod/i.test(ua))?'iOS':(/Mac OS X/i.test(ua)?'macOS':(/Linux/i.test(ua)?'Linux':'Khác'))));
+var order={
+thoi_diem_dang_ky:new Date().toLocaleString('vi-VN',{timeZone:'Asia/Ho_Chi_Minh',hour12:false}),
+hoten:(f.ten?f.ten.value.trim():''),
+sdt:(f.sdt?f.sdt.value.trim():''),
+email:(f.email?f.email.value.trim():''),
+nguon:location.href,
+referrer:(document.referrer||'Truy cập trực tiếp'),
+loai_thiet_bi:thiet_bi,
+he_dieu_hanh:he_dh,
+ip:(window.__ltsIP||''),
+vi_tri:(window.__ltsViTri||''),
+khach:(window.__ltsKhach||'')
+};
+try{sessionStorage.setItem('xva_order',JSON.stringify(order));}catch(_){}
+try{if(window.fbq)fbq('track','Lead');}catch(_){}
+try{if(window.gtag)gtag('event','dang_ky',{event_category:'xva',event_label:'form_dang_ky_thanh_cong'});}catch(_){}
+var WEBHOOK_URL="[WEBHOOK_MAKE]";
+try{if(WEBHOOK_URL&&WEBHOOK_URL.indexOf('[')<0)fetch(WEBHOOK_URL,{method:'POST',mode:'no-cors',body:new URLSearchParams(order)});}catch(_){}
+window.location.href='thanh-toan.html';return false;}
+</script>
+
+<!-- ============ SCRIPT 3: đo phễu GA4 - tự bắn sự kiện, không dựa Google tự đoán ============ -->
+<script>
+// mo_form CHỈ nghe 'input' (gõ thật hoặc trình duyệt tự điền), bắn 1 lần.
+// KHÔNG nghe 'focusin': nút CTA thường tự đặt con trỏ vào ô đầu -> focusin bắn cho mọi người bấm nút.
+(function(){
+  var f=document.getElementById('dangky');if(!f)return;
+  var done=false;function moForm(){if(done)return;done=true;
+    try{if(window.gtag)gtag('event','mo_form',{event_category:'xva',event_label:'bat_dau_dien_form'});}catch(_){}}
+  f.addEventListener('input',moForm);
+  document.querySelectorAll('a[href="#dangky"],[data-cta]').forEach(function(a){
+    a.addEventListener('click',function(){
+      try{if(window.gtag)gtag('event','bam_dang_ky',{event_category:'xva',event_label:'cta_toi_form'});}catch(_){}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

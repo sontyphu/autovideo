@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<!-- ===== ĐO LƯỜNG Google Analytics 4 (điền [GA4_ID] - TRÙNG id bên index.html để đo trọn phễu) ===== -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=[GA4_ID]"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','[GA4_ID]');</script>
+
+<!-- ===== ĐO LƯỜNG: Facebook Pixel (điền {{FB_PIXEL_ID}}) ===== -->
+<script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  var PIXEL_ID = '{{FB_PIXEL_ID}}';
+  try {
+    if (PIXEL_ID.indexOf('{{') < 0) {
+      fbq('set', 'autoConfig', false, PIXEL_ID); // tắt tự dò form/nút để pixel không can thiệp form
+      fbq('init', PIXEL_ID);
+      fbq('track', 'PageView');
+    }
+  } catch(e){}
+
+  // So khớp nâng cao thủ công: nạp thông tin khách đã chuẩn hoá vào pixel; fbevents.js tự băm SHA-256 trước khi gửi.
+  function fbMatch(hoten, sdt, email){
+    var m = {};
+    var e = (email || '').trim().toLowerCase();
+    if (e) m.em = e;
+    var p = (sdt || '').replace(/\D/g, '');       // Meta cần SĐT dạng quốc tế, chỉ chữ số
+    if (p.indexOf('84') === 0) { /* đã đúng dạng */ }
+    else if (p.indexOf('0') === 0) { p = '84' + p.slice(1); }
+    else if (p) { p = '84' + p; }
+    if (p) m.ph = p;
+    var ten = (hoten || '').trim().replace(/\s+/g, ' ').toLowerCase();
+    if (ten) {
+      var phan = ten.split(' ');
+      m.fn = phan[phan.length - 1];               // tên gọi đứng cuối theo lối Việt
+      if (phan.length > 1) m.ln = phan[0];        // họ đứng đầu
+    }
+    return m;
+  }
+</script>
+<!-- End Facebook Pixel -->
+
+<title>Hoàn tất thanh toán | XƯỞNG VIDEO AI</title>
+<meta name="robots" content="noindex" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    /* ==========================================================================
+       ĐỔI MÀU THEO LANDING CỦA SẢN PHẨM (BẮT BUỘC - mẫu chỉ cho BỐ CỤC/khung).
+       Bóc màu từ CSS trang bán rồi thay 7 biến dưới; giữ nguyên phần "nền chung".
+       --primary = màu chính · --accent-d = màu SỐ TIỀN · --topbar-grad = dải màu đầu trang
+       --tint/--tint-2 = nền/hover nhạt (eyebrow, nút copy, khối trấn an).
+       (mặc định dưới là tím indigo - PHẢI đổi cho khớp từng khóa.)
+       ========================================================================== */
+    --primary:#E2562B; --primary-d:#A63A18; --violet:#7C2D12;
+    --accent:#F5A524; --accent-d:#D97706;
+    --tint:#FEF0EA; --tint-2:#FCDCCF;
+    --topbar-grad:linear-gradient(135deg,#111827 0%,#7C2D12 55%,#E2562B 100%);
+    /* ===== nền chung (ít khi đổi) ===== */
+    --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
+    --bg:#ffffff; --soft:#f8fafc; --soft2:#f1f5f9;
+    --ok:#16a34a; --radius:16px;
+    --shadow:0 10px 30px -12px rgba(15,23,42,.18);
+    --shadow-lg:0 24px 60px -20px rgba(124,45,18,.45);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  html,body{overflow-x:hidden}
+  img{max-width:100%;height:auto}
+  body{font-family:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--soft);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+  .wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 18px}
+  h1,h2,h3{line-height:1.25;font-weight:800;letter-spacing:-.01em}
+  h2{font-size:clamp(20px,3.4vw,26px);margin-bottom:10px}
+  h3{font-size:18px;font-weight:700}
+  p{color:var(--muted)}
+  .center{text-align:center}
+
+  /* ===== TOP BAR (đổi gradient theo nhận diện khóa) ===== */
+  .topbar{background:var(--topbar-grad);color:#fff;text-align:center;padding:22px 18px}
+  /* Thanh tiến trình 3 bước: Đăng ký | Thanh toán | Vào lớp */
+  .progress{display:flex;align-items:flex-start;justify-content:center;max-width:340px;margin:0 auto 14px}
+  .pstep{display:flex;flex-direction:column;align-items:center;gap:6px;flex:none;width:74px}
+  .pstep .dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:800;background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.5)}
+  .pstep .lbl{font-size:12px;font-weight:600;color:#FCDCCF;text-align:center;line-height:1.2}
+  .pstep.done .dot{background:#a7f3d0;color:#065f46;border-color:#a7f3d0}
+  .pstep.active .dot{background:#fff;color:var(--primary-d);border-color:#fff}
+  .pstep.done .lbl,.pstep.active .lbl{color:#fff}
+  .pline{flex:1 1 auto;height:2.5px;background:rgba(255,255,255,.3);border-radius:2px;margin-top:13px}
+  .pline.done{background:#a7f3d0}
+  .topbar h1{font-size:clamp(22px,4.2vw,32px);color:#fff;margin:0 auto 6px;max-width:680px}
+  .topbar p{color:#FCDCCF;max-width:580px;margin:0 auto;font-size:clamp(15px,2.2vw,17px)}
+
+  /* ===== LAYOUT 2 CỘT (desktop: QR bên phải / mobile: QR lên trên) ===== */
+  .checkout{display:flex;flex-direction:row-reverse;gap:24px;align-items:flex-start;padding:30px 0 10px}
+  .col-pay{flex:1 1 380px;max-width:430px;position:sticky;top:18px}
+  .col-info{flex:1 1 460px;min-width:0}
+
+  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px}
+  .panel-pay{border:2px solid var(--primary);box-shadow:var(--shadow-lg);padding:15px}
+
+  .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);background:var(--tint);padding:5px 11px;border-radius:999px;margin-bottom:12px}
+
+  /* ===== QR + CHUYỂN KHOẢN ===== */
+  .qr-wrap{text-align:center}
+  .qr-img{width:min(280px,82%);height:auto;border:1px solid var(--line);border-radius:14px;padding:10px;background:#fff;margin:6px auto 4px;display:block}
+  .qr-hint{font-size:13.5px;color:var(--muted);margin-bottom:16px}
+  /* Toàn bộ thông tin chuyển khoản gói trong MỘT khung chung, các hàng ngăn bằng đường kẻ mảnh. */
+  .bank{text-align:left;margin-top:8px;border:1px solid var(--line);border-radius:12px;background:var(--soft);overflow:hidden}
+  .bank-row{display:flex;flex-wrap:nowrap;justify-content:space-between;align-items:center;gap:6px;padding:11px 12px;border-bottom:1px solid var(--line)}
+  .bank-row:last-child{border-bottom:none}
+  .bank-row .k{flex:none;font-size:11.5px;color:var(--muted);font-weight:600}
+  /* Mọi giá trị CÙNG một cỡ, không bẻ dòng (kể cả tên chủ TK gói trong 1 dòng). */
+  .bank-row .v{font-size:12.5px;font-weight:800;color:var(--ink);flex:1 1 auto;min-width:0;text-align:right;white-space:nowrap;letter-spacing:0}
+  .bank-row.amount .v{color:var(--accent-d)}
+  .bank-row.note{background:#fffbeb}
+  .bank-row.note .v{color:#92400e}
+  .copy{flex:none;border:none;background:var(--tint);color:var(--primary-d);width:30px;height:30px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:background .15s}
+  .copy svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .copy:hover{background:var(--tint-2)}
+  .copy.ok{background:#dcfce7;color:#15803d}
+
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:17px;padding:15px 24px;border-radius:12px;cursor:pointer;border:none;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;width:100%;font-family:inherit}
+  .btn-paid{background:var(--ok);color:#fff;margin-top:18px}
+  .btn-paid:hover{transform:translateY(-2px)}
+  .btn-zalo{background:#fff;color:var(--primary-d);border:1.6px solid var(--primary);margin-top:10px}
+
+  .after-pay{font-size:12.5px;color:var(--muted);font-weight:600;text-align:center;margin-top:14px;white-space:nowrap}
+  .after-pay b{color:var(--ink)}
+
+  /* paid confirmation */
+  .paid-box{display:none;text-align:center;background:#f0fdf4;border:1.5px solid #86efac;border-radius:14px;padding:20px;margin-top:6px}
+  .paid-box h3{color:#15803d;margin-bottom:6px}
+  .paid-box p{color:#166534;font-size:14.5px}
+
+  /* ===== ORDER SUMMARY ===== */
+  .order-line{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:10px 0;border-bottom:1px dashed var(--line)}
+  .order-line:last-of-type{border-bottom:none}
+  .order-line .name{font-weight:700;color:var(--ink);font-size:15.5px;text-align:left}
+  .order-line .price{font-weight:800;white-space:nowrap}
+  .strike{color:#94a3b8;text-decoration:line-through;font-weight:600;font-size:14px}
+  .total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:14px;border-top:2px solid var(--line)}
+  .total .lbl{font-weight:700;font-size:15px}
+  .total .amt{font-weight:800;font-size:26px;color:var(--primary-d)}
+  .save{display:inline-block;background:#dcfce7;color:#15803d;font-weight:800;font-size:13px;padding:5px 11px;border-radius:999px;margin-top:10px}
+
+  /* lists */
+  ul.gets{list-style:none;display:grid;gap:10px;margin-top:4px}
+  ul.gets li{display:flex;gap:10px;align-items:flex-start;font-size:15px;color:var(--ink)}
+  ul.gets li:before{content:"✓";color:var(--ok);font-weight:800;flex:none}
+  ul.gets li b{color:var(--ink)}
+
+  .guarantee{display:flex;gap:14px;align-items:flex-start;background:var(--tint);border:1px solid var(--tint-2);border-radius:14px;padding:18px;margin-top:16px}
+  .guarantee .ic{font-size:28px;flex:none;line-height:1}
+  .guarantee h3{font-size:16px;margin-bottom:4px}
+  .guarantee p{font-size:14px}
+
+  /* FAQ */
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;margin:0 auto 10px;overflow:hidden;text-align:left}
+  details summary{cursor:pointer;font-weight:700;padding:15px 18px;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:15px}
+  details summary::-webkit-details-marker{display:none}
+  details summary:after{content:"+";font-size:22px;color:var(--primary);font-weight:400;transition:transform .2s}
+  details[open] summary:after{transform:rotate(45deg)}
+  details .ans{padding:0 18px 16px;font-size:14.5px;color:var(--muted)}
+
+  footer{color:#94a3b8;text-align:center;padding:30px 18px;font-size:13.5px}
+  footer b{color:#475569}
+
+  @media(max-width:820px){
+    body{font-size:16px}
+    .checkout{flex-direction:column;gap:0;padding-top:18px}
+    .col-pay{position:static;max-width:none;width:100%}
+    .col-info{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== TOP BAR: thanh tiến trình + lời chào ===== -->
+<header class="topbar">
+  <div class="wrap">
+    <div class="progress">
+      <div class="pstep done"><span class="dot">✓</span><span class="lbl">Đăng ký</span></div>
+      <div class="pline done"></div>
+      <div class="pstep active"><span class="dot">2</span><span class="lbl">Thanh toán</span></div>
+      <div class="pline"></div>
+      <div class="pstep"><span class="dot">3</span><span class="lbl">Vào lớp</span></div>
+    </div>
+    <h1 id="hello">Còn một bước nữa là xong!</h1>
+    <p>Quét mã QR để thanh toán. Xong xuôi, mình liên hệ Zalo để kích hoạt khóa học cho bạn.</p>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="checkout">
+
+    <!-- ============ CỘT THANH TOÁN (mobile: lên trên cùng) ============ -->
+    <aside class="col-pay">
+      <div class="panel panel-pay">
+        <div class="qr-wrap">
+          <h2 style="margin-bottom:4px">Chuyển khoản bằng mã QR</h2>
+
+          <img id="qrImg" class="qr-img" src="assets/qr-chuyen-khoan.png" alt="Mã QR chuyển khoản" />
+
+          <div class="bank">
+            <div class="bank-row">
+              <span class="k">Ngân hàng</span>
+              <span class="v" id="vBank">MB Bank</span>
+            </div>
+            <div class="bank-row num">
+              <span class="k">Số tài khoản</span>
+              <span class="v" id="vAcc">7750538888</span>
+              <button class="copy" data-copy="vAcc" aria-label="Sao chép số tài khoản"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            </div>
+            <div class="bank-row">
+              <span class="k">Chủ tài khoản</span>
+              <span class="v" id="vHolder">CONG TY TNHH WINNET PRO</span>
+            </div>
+            <div class="bank-row num amount">
+              <span class="k">Số tiền</span>
+              <span class="v" id="vAmount">868.000 đ</span>
+              <button class="copy" data-copy="vAmountRaw" aria-label="Sao chép số tiền"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            </div>
+            <div class="bank-row num note">
+              <span class="k">Nội dung CK</span>
+              <span class="v" id="vNote">XVA + số điện thoại của bạn</span>
+              <button class="copy" data-copy="vNote" aria-label="Sao chép nội dung chuyển khoản"><svg viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg></button>
+            </div>
+          </div>
+
+          <p class="qr-hint" style="margin-top:14px;margin-bottom:0">Vui lòng ghi <b>đúng nội dung chuyển khoản</b></p>
+
+          <button class="btn btn-paid" id="paidBtn">Tôi đã chuyển khoản ✓</button>
+
+          <div class="paid-box" id="paidBox">
+            <h3>Đã ghi nhận, cảm ơn bạn!</h3>
+            <p></p>
+            <a id="zaloBtn" href="#" target="_blank" rel="noopener" class="btn btn-zalo">Nhắn Zalo gửi ảnh chuyển khoản</a>
+          </div>
+
+          <p class="after-pay">Ấn <b>“Tôi đã chuyển khoản”</b> để vào nhóm học Zalo</p>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============ CỘT THÔNG TIN ĐƠN ============ -->
+    <main class="col-info">
+
+      <!-- Tóm tắt đơn hàng -->
+      <div class="panel">
+        <span class="eyebrow">Đơn hàng của bạn</span>
+        <div class="order-line">
+          <span class="name" id="pName">XƯỞNG VIDEO AI</span>
+          <span class="price" id="pOldWrap"><span class="strike" id="pOld"></span></span>
+        </div>
+        <div class="total">
+          <span class="lbl">Tổng thanh toán</span>
+          <span class="amt" id="vTotal">868.000 đ</span>
+        </div>
+        <div class="center" id="saveWrap" style="display:none"><span class="save" id="saveTxt"></span></div>
+      </div>
+
+      <!-- Bạn nhận được (+ trấn an "học cầm tay" gộp chung khung) -->
+      <div class="panel">
+        <span class="eyebrow">Bạn nhận được</span>
+        <ul class="gets">
+          <li><b>7 chương, 32 bài video quay sẵn - học lúc nào cũng được, xem lại bao nhiêu lần cũng được</b></li>
+          <li><b>Buổi Zoom gỡ vướng trực tiếp với Lê Thanh Sơn, tập trung vào phần cài đặt</b></li>
+          <li><b>Bộ lệnh mẫu copy dán sẵn theo từng bài, kèm ba bộ khuôn hiệu ứng đổi màu là dùng được</b></li>
+          <li><b>Danh sách lỗi hay gặp lúc cài kèm cách gỡ, và nhóm hỗ trợ chung</b></li>
+        </ul>
+
+        <div class="guarantee">
+          
+          <div>
+            <h3>Vướng đâu gỡ đó</h3>
+            <p>Chương 0 dạy cài đặt từng bước, mỗi thứ cài xong thử ngay tại chỗ. Tắc chỗ nào mang lên buổi Zoom hỏi, hoặc hỏi trong nhóm hỗ trợ.</p>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Giải đáp thắc mắc (CHỈ hỏi-đáp về thanh toán; câu trước-khi-mua để ở trang bán) -->
+  <section style="padding:14px 0 6px">
+    <h2 class="center" style="margin-bottom:18px">Giải đáp thắc mắc</h2>
+    <div style="max-width:720px;margin:0 auto">
+      <details><summary>Chuyển khoản xong bao lâu thì được xác nhận?</summary><div class="ans">Bạn cứ giữ lại ảnh chuyển khoản. Mình đối soát và liên hệ Zalo xác nhận, thường trong vài giờ làm việc. Cần gấp thì nhắn Zalo 0343928094.</div></details>
+      <details><summary>Quét QR không được thì làm sao?</summary><div class="ans">Bạn chuyển khoản tay theo đúng <b>Số tài khoản</b>, <b>Số tiền</b> và <b>Nội dung CK</b> ghi ở trên (bấm nút sao chép cho nhanh).</div></details>
+      <details><summary>Sau khi thanh toán mình bắt đầu ở đâu?</summary><div class="ans">Mình liên hệ qua Zalo/điện thoại bạn đã đăng ký để gửi lịch học và tài liệu. Bạn không phải nhập lại thông tin.</div></details>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <p><b>XƯỞNG VIDEO AI</b> · Lê Thanh Sơn - Chuyên gia và diễn giả đào tạo ứng dụng AI cho doanh nghiệp</p>
+  <p style="margin-top:5px">Cần hỗ trợ thanh toán? Nhắn Zalo 0343928094.</p>
+</footer>
+
+<script>
+  // ============================================================
+  //  KHỐI CẤU HÌNH - chỉ cần sửa trong khối này.
+  // ============================================================
+  var PAY = {
+    bankBin : "970422",
+    bankName: "MB Bank",
+    account : "7750538888",
+    holder  : "CONG TY TNHH WINNET PRO",
+    amount  : "868000"
+  };
+  var PRODUCT       = "XƯỞNG VIDEO AI";
+  var PRICE_OLD     = "";   // để "" nếu không gạch giá
+  var ZALO_HOTRO    = "0343928094";
+  var MA_DON        = "XVA";        // nội dung CK = MÃ + SĐT khách -> đối soát từng đơn
+  var ORDER_KEY     = "xva_order";               // TRÙNG key sessionStorage bên index.html
+  var XAC_NHAN_TIME = "trong vài giờ làm việc";
+  var QR_FALLBACK   = "assets/qr-chuyen-khoan.png"; // ảnh QR tĩnh dự phòng khi VietQR lỗi
+  // ============================================================
+
+  // ---- 1) Kéo lên đầu trang khi khách vừa được chuyển sang ----
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
+
+  function isPlaceholder(v){ return !v || String(v).indexOf('[') === 0; }
+  function vnd(n){ return Number(n).toLocaleString('vi-VN'); }
+  function setText(id, v){ var e = document.getElementById(id); if(e) e.textContent = v; }
+
+  // ---- 2) Lấy thông tin khách từ trang đăng ký (nếu có) ----
+  var order = {};
+  try { order = JSON.parse(sessionStorage.getItem(ORDER_KEY) || '{}'); } catch(e){}
+  var phone = (order.sdt || '').replace(/\D/g, '');
+
+  // MÃ ĐƠN dùng chung cho mọi đường báo về Meta (nút bấm, Sepay khi tiền về, Sheet khi tick tay).
+  // Cùng mã -> Meta gộp thành 1 đơn thay vì đếm nhiều lần. Lấy theo SĐT vì các đường đều biết SĐT.
+  var maDonPrefix = isPlaceholder(MA_DON) ? '' : MA_DON;
+  var EVENT_ID = (phone && maDonPrefix) ? (maDonPrefix + '-' + phone) : '';
+
+  if (order.hoten) {
+    var ten = order.hoten.trim().split(/\s+/).pop();
+    setText('hello', 'Cảm ơn ' + ten + ', còn một bước nữa là xong!');
+  }
+
+  // ---- 2b) Đo: khách đã sang bước thanh toán (thấy mã QR) ----
+  // Khách tới đây là đã qua form, đang nhìn mã QR -> sự kiện CÓ THẬT, bắn tự động được.
+  // KHÔNG bắn Purchase ở đây: nhìn QR chưa phải đã chuyển tiền.
+  try {
+    if (typeof fbq === 'function' && PIXEL_ID.indexOf('{{') < 0) {
+      fbq('init', PIXEL_ID, fbMatch(order.hoten, order.sdt, order.email));
+      fbq('track', 'InitiateCheckout', { value: Number(PAY.amount) || 0, currency: 'VND', content_name: PRODUCT });
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'bat_dau_thanh_toan', { event_category: 'checkout', event_label: 'thay_ma_qr' });
+    }
+  } catch(e){}
+
+  // ---- 3) Tên sản phẩm + nội dung CK = MÃ + SĐT khách ----
+  setText('pName', PRODUCT);
+  var noiDung = (phone && maDonPrefix) ? (maDonPrefix + ' ' + phone)
+              : (maDonPrefix ? (maDonPrefix + ' [SĐT của bạn]') : 'XVA + số điện thoại của bạn');
+  setText('vNote', noiDung);
+
+  // ---- 4) Ngân hàng + giá ----
+  setText('vBank', PAY.bankName); setText('vAcc', PAY.account);
+  setText('vHolder', PAY.holder);
+  var amountNum = (PAY.amount || '').replace(/\D/g, '');
+  if (amountNum) {
+    setText('vAmount', vnd(amountNum) + ' đ');
+    setText('vTotal', vnd(amountNum) + ' đ');
+  }
+  // giá gốc gạch ngang + badge tiết kiệm
+  var oldNum = (PRICE_OLD || '').replace(/\D/g, '');
+  if (oldNum) {
+    setText('pOld', vnd(oldNum) + 'đ');
+    if (amountNum && Number(oldNum) > Number(amountNum)) {
+      var diff = Number(oldNum) - Number(amountNum);
+      var pct = Math.round(diff / Number(oldNum) * 100);
+      setText('saveTxt', 'Tiết kiệm ' + vnd(diff) + 'đ (~' + pct + '%)');
+      var sw = document.getElementById('saveWrap'); if (sw) sw.style.display = 'block';
+    }
+  }
+  // ô ẩn chứa số tiền thuần cho nút "sao chép số tiền"
+  var rawAmt = document.createElement('span');
+  rawAmt.id = 'vAmountRaw'; rawAmt.style.display = 'none';
+  rawAmt.textContent = amountNum || '';
+  document.body.appendChild(rawAmt);
+
+  // QR động VietQR (gắn nội dung = SĐT + số tiền nếu có). Lỗi -> tự rơi về ảnh tĩnh QR_FALLBACK.
+  if (!isPlaceholder(PAY.bankBin) && !isPlaceholder(PAY.account)) {
+    var url = 'https://img.vietqr.io/image/' + PAY.bankBin + '-' + PAY.account + '-compact2.png'
+            + '?accountName=' + encodeURIComponent(PAY.holder);
+    if (amountNum) url += '&amount=' + amountNum;
+    if (phone)     url += '&addInfo=' + encodeURIComponent(noiDung);
+    var qr = document.getElementById('qrImg');
+    qr.setAttribute('onerror', "this.onerror=null;this.src='" + QR_FALLBACK + "';");
+    qr.src = url;
+  }
+
+  // ---- 5) Nút sao chép (dự phòng execCommand cho trình duyệt trong app Zalo/FB chặn clipboard) ----
+  var CHECK_SVG = '<svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg>';
+  function flashCopied(btn){
+    if (btn.classList.contains('ok')) return;
+    var old = btn.innerHTML;
+    btn.innerHTML = CHECK_SVG; btn.classList.add('ok');
+    setTimeout(function(){ btn.innerHTML = old; btn.classList.remove('ok'); }, 1500);
+  }
+  function legacyCopy(txt){
+    try {
+      var ta = document.createElement('textarea');
+      ta.value = txt; ta.setAttribute('readonly','');
+      ta.style.position = 'absolute'; ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select(); ta.setSelectionRange(0, txt.length);
+      var ok = document.execCommand('copy');
+      document.body.removeChild(ta);
+      return ok;
+    } catch(e){ return false; }
+  }
+  document.querySelectorAll('.copy').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var txt = (el ? el.textContent : '').trim();
+      if (!txt) return;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(txt)
+          .then(function(){ flashCopied(btn); })
+          .catch(function(){ if (legacyCopy(txt)) flashCopied(btn); });
+      } else if (legacyCopy(txt)) {
+        flashCopied(btn);
+      }
+    });
+  });
+
+  // ---- 6) Nút "Tôi đã chuyển khoản" -> bắn Purchase (đơn TẠM, khách tự khai) ----
+  document.getElementById('zaloBtn').href = 'https://zalo.me/' + ZALO_HOTRO;
+  document.getElementById('paidBox').querySelector('p').innerHTML =
+    'Mình sẽ kiểm tra và liên hệ Zalo xác nhận ' + XAC_NHAN_TIME + '. Bạn nhớ <b>giữ lại ảnh chuyển khoản</b> nhé.';
+  document.getElementById('paidBtn').addEventListener('click', function(){
+    this.style.display = 'none';
+    var box = document.getElementById('paidBox');
+    box.style.display = 'block';
+    box.scrollIntoView({behavior:'smooth', block:'center'});
+    if (typeof gtag === 'function') {
+      gtag('event', 'da_chuyen_khoan', { event_category: 'checkout', event_label: 'bam_da_thanh_toan' });
+    }
+    // eventID = mã đơn: khi Sepay báo tiền về thật cũng gửi Meta cùng mã này -> Meta gộp làm 1.
+    if (typeof fbq === 'function' && PIXEL_ID.indexOf('{{') < 0) {
+      fbq('track', 'Purchase',
+        { value: Number(PAY.amount) || 0, currency: 'VND', content_name: PRODUCT },
+        EVENT_ID ? { eventID: EVENT_ID } : undefined);
+    }
+  });
+</script>
+</body>
+</html>
