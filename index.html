@@ -64,7 +64,7 @@ fbq('track','PageView');
 
   /* HERO */
   .hero{padding-top:clamp(46px,7vw,86px)}
-  .hero h1{font-size:clamp(30px,5.6vw,54px);color:#fff;margin-bottom:20px;max-width:16ch}
+  .hero h1{font-size:clamp(30px,5.6vw,54px);color:#fff;margin-bottom:20px;max-width:20ch}
   .hero .tach{background:rgba(226,86,43,.10);border-left:4px solid var(--primary);padding:13px 17px;border-radius:0 12px 12px 0;margin:0 0 20px;color:#fff;font-weight:600;max-width:62ch}
   .hero .lead{color:#cbd5e1;font-size:clamp(17px,2.2vw,20px);margin-bottom:14px;max-width:60ch}
   .hero .meta{color:var(--muted);font-size:15.5px;margin-bottom:28px;max-width:60ch}
@@ -96,9 +96,9 @@ fbq('track','PageView');
   .feat-list li b{display:block;color:#fff;font-size:17.5px;margin-bottom:2px}
   .kbd{display:inline-block;background:var(--panel-2);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:8px;padding:9px 13px;margin:6px 0;color:#e5e7eb;font-size:15px}
 
-  /* Lợi ích grid */
-  .benefits{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
-  .bcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 22px;transition:transform .2s ease,border-color .2s ease}
+  /* Lợi ích grid - 4 cột x 2 hàng */
+  .benefits{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .bcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px 20px;transition:transform .2s ease,border-color .2s ease}
   .bcard:hover{transform:translateY(-3px);border-color:rgba(245,165,36,.5)}
   .bcard .ic{width:38px;height:38px;border-radius:10px;background:rgba(245,165,36,.14);color:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:12px;font-weight:800}
   .bcard .ic svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -116,11 +116,6 @@ fbq('track','PageView');
   .day{background:linear-gradient(180deg,rgba(226,86,43,.08),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,3.4vw,40px)}
   .day p{font-size:clamp(16px,2vw,18px)}
   .day .em{color:#fff;font-weight:600}
-
-  /* Dải số */
-  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;text-align:center}
-  .stat .n{font-size:clamp(34px,5vw,52px);font-weight:800;color:var(--accent);line-height:1;text-shadow:0 0 30px rgba(245,165,36,.4)}
-  .stat .l{color:var(--muted);font-size:14.5px;margin-top:8px}
 
   /* Tab chương */
   .tabs-btn{display:flex;flex-wrap:wrap;gap:9px;justify-content:center;margin-bottom:26px}
@@ -221,10 +216,35 @@ fbq('track','PageView');
   .sticky .t span{color:var(--accent)}
   .sticky .btn{padding:12px 26px;font-size:16px}
 
+  /* 3 cột "Nó hiểu / nhớ / làm" dưới khung prompt + ảnh */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:clamp(28px,4vw,44px)}
+  .tcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px 22px;box-shadow:0 20px 50px -30px rgba(0,0,0,.8)}
+  .tcard .ic{width:42px;height:42px;border-radius:11px;background:rgba(245,165,36,.14);color:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+  .tcard .ic svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .tcard b{display:block;color:#fff;font-size:17.5px;margin-bottom:6px}
+  .tcard span{color:var(--muted);font-size:15px;display:block}
+
+  /* Danh sách bài trong tab chương */
+  .les{list-style:none;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(2,1fr);gap:10px 26px}
+  .les li{position:relative;padding-left:28px;color:var(--muted);font-size:15.5px}
+  .les li::before{content:"";position:absolute;left:0;top:7px;width:16px;height:16px;border-radius:50%;background:rgba(245,165,36,.16);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23F5A524' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat:no-repeat;background-position:center}
+  .les li b{color:#fff;font-weight:600}
+
+  /* Khối BNI */
+  .bni{display:flex;align-items:center;gap:16px;margin-top:22px;padding-top:20px;border-top:1px solid var(--line)}
+  .bni img{height:60px;width:auto;flex-shrink:0}
+  .bni p{margin:0;font-size:14.5px;line-height:1.55}
+
   .reveal{}
   .js .reveal{opacity:0;transform:translateY(26px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
   .js .reveal.in{opacity:1;transform:none}
 
+  @media (max-width:1000px){
+    .benefits{grid-template-columns:repeat(2,1fr)}
+    .trio{grid-template-columns:1fr}
+  }
   @media (max-width:860px){
     .lect{grid-template-columns:1fr}
     .lect-img{max-width:280px}
@@ -235,8 +255,9 @@ fbq('track','PageView');
     .row2{grid-template-columns:1fr;gap:22px}
     .row2.flip .col-txt{order:0}
     .cards3{grid-template-columns:1fr}
+    .trio{grid-template-columns:1fr}
+    .les{grid-template-columns:1fr}
     .benefits{grid-template-columns:1fr}
-    .stats{grid-template-columns:repeat(2,1fr);gap:26px 18px}
     .gifts{grid-template-columns:1fr}
     .cond{grid-template-columns:1fr}
     .qa-grid{grid-template-columns:1fr}
@@ -253,10 +274,9 @@ fbq('track','PageView');
 <section class="hero">
   <div class="wrap">
     <span class="eyebrow reveal">XƯỞNG VIDEO AI</span>
-    <h1 class="reveal">Video bạn đã quay xong. Để AI dựng thành <span class="hl">cả tháng nội dung</span>.</h1>
+    <h1 class="reveal">Ra lệnh một câu, AI biến video bạn đã quay thành <span class="hl">cả tháng nội dung để đăng</span>.</h1>
     <p class="tach reveal"><b>Bạn mang video mình đã quay vào.</b> Đây là khóa hậu kỳ, không phải khóa để AI tự sinh video từ con số 0.</p>
-    <p class="lead reveal">Một bộ máy dựng video chạy ngay trên máy tính của bạn. Bạn gõ yêu cầu bằng tiếng Việt, nó làm theo: cắt video, gắn phụ đề, làm đúng gu thương hiệu của bạn, và làm cả loạt cùng lúc.</p>
-    <p class="meta reveal">Một buổi quay hai tiếng ra 10 đến 15 video đăng được. 7 chương, 32 bài quay sẵn, kèm buổi Zoom gỡ vướng trực tiếp với Lê Thanh Sơn.</p>
+    <p class="lead reveal">Bạn không ngồi cắt, cũng không thuê người dựng. Bạn gõ yêu cầu bằng tiếng Việt cho một bộ máy AI chạy ngay trên máy tính của mình - nó cắt video dài thành loạt clip, gắn phụ đề, làm đúng gu thương hiệu của bạn, và làm cả loạt cùng lúc.</p>
     <a href="#dangky" class="btn reveal">Đăng ký XƯỞNG VIDEO AI - 868.000đ</a>
     <div class="hero-media reveal"><div class="frame"><img src="assets/hero-demo.png" alt="Giao diện xưởng video: một video dài được cắt thành nhiều clip" /></div></div>
   </div>
@@ -314,13 +334,26 @@ fbq('track','PageView');
         <p>Bạn không đi tìm nút nữa. Bạn ra lệnh bằng tiếng Việt, đúng như cách dặn một người thợ dựng:</p>
         <span class="kbd">"Cắt video này thành các clip theo chủ đề, đừng cắt ngang câu."</span>
         <span class="kbd">"Gắn phụ đề, dùng font và màu thương hiệu của tôi."</span>
-        <ul class="feat-list">
-          <li><b>Nó hiểu nội dung, không đoán theo âm lượng.</b> Toàn bộ lời nói được bóc thành bản chữ có mốc thời gian tới từng từ. Máy đọc rồi mới quyết định cắt ở đâu.</li>
-          <li><b>Nó nhớ gu của bạn.</b> Bạn khai màu, font, cách nhìn một lần. Từ đó về sau nó tự làm đúng, không phải mô tả lại.</li>
-          <li><b>Nó làm cả loạt.</b> Một lệnh chạy hai mươi video. Bạn đi làm việc khác, quay lại thì xong.</li>
-        </ul>
+        <span class="kbd">"Lồng nhạc nền, thêm hiệu ứng chuyển cảnh, xuất khung dọc và khung ngang."</span>
       </div>
       <div class="col-img reveal"><div class="frame"><img src="assets/demo-ra-lenh.png" alt="Ra lệnh bằng lời, máy trả về loạt clip" /></div></div>
+    </div>
+    <div class="trio">
+      <div class="tcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><line x1="8" y1="8" x2="16" y2="8"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="8" y1="16" x2="13" y2="16"/></svg></div>
+        <b>Nó hiểu nội dung, không đoán theo âm lượng</b>
+        <span>Toàn bộ lời nói được bóc thành bản chữ có mốc thời gian tới từng từ. Máy đọc rồi mới quyết định cắt ở đâu.</span>
+      </div>
+      <div class="tcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="8.5" cy="10" r="1.1"/><circle cx="12" cy="8" r="1.1"/><circle cx="15.5" cy="10.5" r="1.1"/></svg></div>
+        <b>Nó nhớ gu của bạn</b>
+        <span>Bạn khai màu, font, cách nhìn một lần. Từ đó về sau nó tự làm đúng, không phải mô tả lại.</span>
+      </div>
+      <div class="tcard reveal">
+        <div class="ic"><svg viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+        <b>Nó làm cả loạt</b>
+        <span>Một lệnh chạy hai mươi video. Bạn đi làm việc khác, quay lại thì xong.</span>
+      </div>
     </div>
   </div>
 </section>
@@ -345,7 +378,7 @@ fbq('track','PageView');
 <!-- ===== Trả lời nỗi lo cụ thể ===== -->
 <section>
   <div class="wrap">
-    <div class="sec-head center reveal"><h2>Bạn đang lo đúng những điều này - khóa làm được hết</h2><p class="lead-sub">Quay thì ai cũng quay được. Cái ngốn cả buổi là khúc sau: cắt, phụ đề, nhạc, hiệu ứng cho ra video xem được. Khóa này gánh đúng khúc đó - bạn gửi một câu, máy làm hết.</p></div>
+    <div class="sec-head center reveal"><h2>Quay video ai cũng làm được - vấn đề là...</h2><p class="lead-sub">Khúc ngốn hết thời gian nằm ở sau khi tắt máy quay: AI sẽ cắt cho gọn, thêm phụ đề, lồng nhạc, tạo hiệu ứng, và chèn thêm cảnh minh họa cho ra video xem được. Khóa này giao trọn khúc đó cho AI - bạn gửi một câu, máy làm hết. Đây là 7 điều bạn đang lo, và cách máy làm từng điều.</p></div>
     <div class="qa-grid">
       <div class="qa reveal"><div class="q">Cắt đúng chỗ mình muốn?</div><div class="a"><b>Được.</b> Máy bóc lời nói thành chữ có mốc giờ; bạn bảo "giữ đoạn này, bỏ đoạn kia", hoặc để máy tự cắt theo chủ đề - đúng câu, không đứt giữa lời.</div></div>
       <div class="qa reveal"><div class="q">Chèn được phụ đề (caption)?</div><div class="a"><b>Tự động.</b> Phụ đề chạy theo lời, đúng chính tả, canh đúng thời điểm - không gõ tay từng dòng.</div></div>
@@ -386,19 +419,6 @@ fbq('track','PageView');
   </div>
 </section>
 
-<!-- ===== Dải số thật ===== -->
-<section>
-  <div class="wrap">
-    <div class="sec-head center reveal"><span class="eyebrow-c">Con số thật từ việc của Lê Thanh Sơn</span></div>
-    <div class="stats">
-      <div class="stat reveal"><div class="n" data-to="14">14</div><div class="l">bài học cắt ra từ một buổi dạy 2h12</div></div>
-      <div class="stat reveal"><div class="n" data-to="6">6</div><div class="l">video lời chứng đã cắt thành clip sạch</div></div>
-      <div class="stat reveal"><div class="n" data-to="4">4</div><div class="l">dự án video dựng bằng công cụ tự động</div></div>
-      <div class="stat reveal"><div class="n" data-to="3">3</div><div class="l">bộ công cụ riêng tinh chỉnh cho tiếng Việt</div></div>
-    </div>
-  </div>
-</section>
-
 <!-- ===== Khối 7 - Giáo trình (tab) ===== -->
 <section>
   <div class="wrap">
@@ -414,13 +434,64 @@ fbq('track','PageView');
         <button class="tab-b" data-i="6">Chương 6</button>
       </div>
       <div id="tabPanels">
-        <div class="tab-panel on"><div class="cn">Chương 0 - 8 bài</div><h3>Cài đặt bộ máy trên máy tính của bạn</h3><p>Phần khó nhất nằm ở đây, nên nó được dạy kỹ nhất khóa. Mỗi bài cài đúng một thứ, cài xong thử ngay tại chỗ. Hỏng chỗ nào bạn biết ngay chỗ đó, không phải ôm cả đống rồi ngồi đoán.</p><span class="got">Qua chương này bạn có: một bộ máy dựng video chạy được trên máy mình, đã tự tay thử và thấy ra file.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 1 - 4 bài</div><h3>Cắt được clip đầu tiên ngay hôm nay</h3><p>Bạn không phải học hết khóa mới thấy kết quả. Ngay chương này đã có clip đăng được, và bạn hiểu vì sao máy cắt theo câu chứ không cắt theo đồng hồ.</p><span class="got">Qua chương này bạn có: một clip hoàn chỉnh do chính tay bạn cắt, nghe liền mạch.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 2 - 6 bài (chương trục)</div><h3>Một video dài thành cả tháng nội dung</h3><p>Buổi livestream, buổi hội thảo, video sự kiện đang nằm im trong ổ cứng sẽ được cắt thành loạt clip, mỗi clip trọn một ý, đăng được ngay.</p><span class="got">Qua chương này bạn có: 10 đến 15 clip từ một video dài của chính bạn.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 3 - 5 bài (điểm bán mạnh nhất)</div><h3>Video ra đúng chất của bạn</h3><p>Đây là chỗ khác biệt lớn nhất so với mọi phần mềm cắt tự động. Bạn khai màu, font, cách trình bày một lần. Từ đó máy tự làm đúng gu, không phải dặn lại.</p><span class="got">Qua chương này bạn có: bộ khuôn riêng của thương hiệu, dùng mãi về sau.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 4 - 3 bài</div><h3>Làm cả loạt trong một lệnh</h3><p>Có hai mươi video cần xử thì không ngồi bấm hai mươi lần. Một lệnh chạy hết, và xuất luôn nhiều tỉ lệ khung cho từng nền tảng.</p><span class="got">Qua chương này bạn có: loạt video sẵn sàng đăng, có sẵn đường dẫn để gắn vào trang.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 5 - 3 bài</div><h3>Lấy thêm nội dung bán hàng từ video cũ</h3><p>Những buổi quay từ năm ngoái đang nằm im vẫn còn bán được. Chương này dạy cách lọc ra đoạn còn giá trị và cắt thành clip bán hàng, không phải quay thêm.</p><span class="got">Qua chương này bạn có: bộ clip bán hàng lấy hoàn toàn từ kho sẵn có.</span></div>
-        <div class="tab-panel"><div class="cn">Chương 6 - 3 bài</div><h3>Nhận dựng video cho người khác</h3><p>Dành cho freelancer muốn nhận việc, và nhân viên muốn gánh nổi mảng video của công ty. Đóng cách làm của bạn thành quy trình chạy lại được.</p><span class="got">Qua chương này bạn có: quy trình riêng, đủ để nhận việc thật hoặc gánh mảng video trong công ty.</span></div>
+        <div class="tab-panel on"><div class="cn">Chương 0 - 8 bài · Cầm tay từng bước</div><h3>Dựng "xưởng video AI" ngay trên máy của bạn</h3><p>Cửa khó nhất của cả hành trình, nên được cầm tay kỹ nhất khóa. Mỗi bài cài đúng một thứ, cài xong bấm thử ngay tại chỗ - hỏng đâu biết ngay đó, không ôm cả đống rồi ngồi đoán.</p>
+          <ul class="les">
+            <li><b>Cài phần nền + trợ lý AI</b>, mở lần đầu chào thử một câu</li>
+            <li><b>Cài phần xử lý video</b> và đồ nghề cắt ghép</li>
+            <li><b>Nạp bộ công cụ video</b> vào trợ lý AI</li>
+            <li><b>Lấy chìa khóa dịch vụ bóc tiếng</b>, tính trước chi phí mỗi video</li>
+            <li><b>Chạy thử cả xưởng</b>: ném một video vào, ra lệnh, xem ra file</li>
+            <li><b>Bài gỡ lỗi riêng</b>: tên file có dấu, thiếu quyền, sai đường dẫn</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: một xưởng video chạy được trên máy mình, đã tự tay thử và thấy ra file. Từ đây không đụng tới cài đặt nữa.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 1 - 4 bài · Có kết quả ngay</div><h3>Cắt xong clip đầu tiên ngay trong hôm nay</h3><p>Không phải học hết khóa mới thấy kết quả. Ngay chương này đã có clip đăng được, và bạn hiểu vì sao máy cắt theo câu nói chứ không cắt theo đồng hồ.</p>
+          <ul class="les">
+            <li><b>Ra lệnh một câu</b>, có clip hoàn chỉnh đăng được ngay</li>
+            <li><b>Bóc tiếng video thành bản chữ</b> có mốc giờ tới từng từ</li>
+            <li><b>Đọc bản chữ chọn đoạn đáng giữ</b> - nhanh gấp nhiều lần ngồi tua</li>
+            <li><b>Cắt bám ranh giới câu</b>, không bao giờ đứt giữa lời</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: một clip hoàn chỉnh do chính tay bạn cắt, nghe liền mạch, không cụt câu.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 2 - 6 bài · Chương trục, nặng nhất</div><h3>Một video dài "đẻ" ra cả tháng nội dung</h3><p>Buổi livestream, buổi hội thảo, video sự kiện đang nằm im trong ổ cứng - chương này biến nó thành loạt clip, mỗi clip trọn một ý, đăng được ngay.</p>
+          <ul class="les">
+            <li><b>Chia video dài theo ý</b>, mỗi clip một chủ đề trọn vẹn</li>
+            <li><b>Đặt tên clip đọc là biết nói gì</b>, khỏi mở từng cái xem lại</li>
+            <li><b>Cắt bỏ quãng chết</b>: ngập ngừng, im lặng dài</li>
+            <li><b>Gỡ đoạn nói xen kẽ</b>, nối lại cho liền mạch</li>
+            <li><b>Bỏ tiếng lạ, tạp âm nền</b> lọt vào lúc quay</li>
+            <li><b>Cắt trọn một video dài của bạn</b> thành loạt clip hoàn chỉnh</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: một video dài của chính bạn ra 10 đến 15 clip gọn, mỗi clip đăng được ngay.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 3 - 5 bài · Điểm bán mạnh nhất</div><h3>Video ra đúng "chất" riêng, không lẫn với ai</h3><p>Chỗ khác biệt lớn nhất so với mọi phần mềm cắt tự động. Bạn khai màu, font, cách trình bày một lần - từ đó máy tự làm đúng gu, không phải dặn lại.</p>
+          <ul class="les">
+            <li><b>Lập hồ sơ thương hiệu</b>: màu, kiểu chữ, cách nhìn riêng - khai một lần dùng mãi</li>
+            <li><b>Gắn phụ đề chạy theo lời</b>, đúng font và màu của bạn</li>
+            <li><b>Làm thẻ chữ nổi bật ở câu chốt</b>, giữ người xem không lướt qua</li>
+            <li><b>Học gu hiệu ứng từ một video mẫu</b> bạn thích, biến thành khuôn riêng</li>
+            <li><b>Chèn cảnh phụ minh họa</b> đúng lời đang nói</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: bộ khuôn riêng của thương hiệu. Lần sau ra lệnh, máy tự làm đúng gu, khỏi dặn lại.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 4 - 3 bài · Nhân sản lượng</div><h3>Làm cả loạt trong một lệnh, xuất đủ khung mọi nền tảng</h3><p>Có hai mươi video cần xử thì không ngồi bấm hai mươi lần. Một lệnh chạy hết, và xuất luôn nhiều tỉ lệ khung cho từng nền tảng.</p>
+          <ul class="les">
+            <li><b>Một lệnh chạy cả loạt video</b>, không bấm từng cái</li>
+            <li><b>Xuất cùng lúc nhiều tỉ lệ khung</b> cho từng nền tảng</li>
+            <li><b>Đưa video lên nơi lưu trữ</b> và ghép vào trang của bạn</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: loạt video sẵn sàng đăng, có sẵn đường dẫn để gắn vào trang hoặc gửi cho người khác.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 5 - 3 bài · Ra tiền ngay</div><h3>Moi thêm tiền bán hàng từ kho video cũ</h3><p>Những buổi quay từ năm ngoái đang nằm im vẫn còn bán được. Chương này dạy cách lọc ra đoạn còn giá trị và cắt thành clip bán hàng, không phải quay thêm.</p>
+          <ul class="les">
+            <li><b>Lọc kho video cũ</b>, tìm ra đoạn còn bán được</li>
+            <li><b>Cắt lời chứng khách hàng thành clip sạch</b>, đủ sức thuyết phục người phân vân</li>
+            <li><b>Cắt clip ngắn bắt mắt</b> từ video dài đã có sẵn</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: bộ clip bán hàng lấy hoàn toàn từ kho cũ, không phải quay thêm.</span></div>
+        <div class="tab-panel"><div class="cn">Chương 6 - 3 bài · Đòn bẩy thu nhập</div><h3>Biến kỹ năng này thành nghề có tiền</h3><p>Dành cho freelancer muốn nhận việc, và nhân viên muốn gánh nổi mảng video của công ty. Đóng cách làm của bạn thành quy trình chạy lại được.</p>
+          <ul class="les">
+            <li><b>Đóng cách làm thành quy trình chạy lại được</b>, khỏi mò lại từ đầu</li>
+            <li><b>Nhận việc và trả hàng đều tay</b> cho khách hoặc cho công ty</li>
+            <li><b>Nhận nhiều việc cùng lúc</b> mà không vỡ tiến độ</li>
+          </ul>
+          <span class="got">Qua chương này bạn có: quy trình riêng, đủ để nhận việc thật hoặc gánh mảng video trong công ty.</span></div>
       </div>
     </div>
   </div>
@@ -429,6 +500,7 @@ fbq('track','PageView');
 <!-- ===== Khối 8 - Giảng viên ===== -->
 <section>
   <div class="wrap">
+    <div class="sec-head center reveal"><span class="eyebrow-c">Người đồng hành cùng bạn</span><h2>Người trực tiếp cầm tay bạn qua từng chương</h2></div>
     <div class="lect">
       <div class="lect-img reveal"><img src="assets/giang-vien.png" alt="Lê Thanh Sơn - áo thương hiệu AUTO VIDEO" /></div>
       <div class="reveal">
@@ -438,6 +510,10 @@ fbq('track','PageView');
         <p>Tôi có một buổi dạy trực tuyến dài 2 tiếng 12 phút. Tôi đưa nó vào máy, cắt thành 14 bài học riêng, mỗi bài trọn một chủ đề. Toàn bộ 14 bài đó đang nằm trên trang học của học viên tôi.</p>
         <p>Tôi cắt 6 video lời chứng của học viên thành clip sạch, dựng 4 dự án video bằng công cụ tự động kèm giọng đọc AI, và tự tay tinh chỉnh 3 bộ công cụ riêng cho việc của mình.</p>
         <p>Và tôi chạy toàn bộ việc này <b>trên máy Windows</b>. Nên tôi biết đúng những chỗ máy Windows hay hỏng lúc cài, và biết cách gỡ. Chương 0 của khóa này ra đời từ đó.</p>
+        <div class="bni">
+          <img src="assets/logo-bni-proud-member.png" alt="Thành viên tự hào của BNI" loading="lazy" />
+          <p>Thành viên chính thức <b>BNI</b> - tổ chức kết nối kinh doanh lớn nhất thế giới, sinh hoạt cùng cộng đồng chủ doanh nghiệp mỗi tuần.</p>
+        </div>
       </div>
     </div>
   </div>
@@ -573,21 +649,6 @@ fbq('track','PageView');
       btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
       pans.forEach(function(p,j){p.classList.toggle('on',j===i)});
     })});
-  })();
-
-  /* Đếm số tăng dần */
-  (function(){
-    var done=false;
-    function run(){
-      if(done)return;var row=document.querySelector('.stats');if(!row)return;
-      var r=row.getBoundingClientRect();if(r.top>window.innerHeight-80)return;done=true;
-      document.querySelectorAll('.stat .n').forEach(function(el){
-        var to=+el.dataset.to,cur=0,step=Math.max(1,Math.round(to/28));
-        el.textContent='0';
-        var t=setInterval(function(){cur+=step;if(cur>=to){cur=to;clearInterval(t);}el.textContent=cur;},34);
-      });
-    }
-    window.addEventListener('scroll',run);run();
   })();
 
   /* Thanh CTA dính - hiện sau khi cuộn qua hero */
