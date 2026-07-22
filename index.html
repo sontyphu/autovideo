@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>XƯỞNG VIDEO AI | Video bạn đã quay, AI dựng thành cả tháng nội dung</title>
 <meta name="description" content="Khóa hậu kỳ video bằng AI. Ra lệnh bằng lời, máy cắt video dài thành 10-15 clip đăng được, đúng gu thương hiệu, làm cả loạt." />
+
+<!-- ===== Facebook Pixel (ID: 1324953789789972) - đo lường quảng cáo ===== -->
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('set','autoConfig',false,'1324953789789972');
+fbq('init','1324953789789972');
+fbq('track','PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1324953789789972&ev=PageView&noscript=1"/></noscript>
+<!-- End Facebook Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -577,14 +587,18 @@
     window.addEventListener('scroll',function(){s.classList.toggle('show',window.scrollY>640);});
   })();
 
-  /* Form -> sang trang thanh toán (giống trang đang chạy) */
+  /* Form -> gửi lead về Make + bắn pixel Lead + sang trang thanh toán */
   (function(){
     var f=document.getElementById('regForm');if(!f)return;
+    var WEBHOOK='https://hook.eu2.make.com/o9r5obpv72bj0oo7g1m3e2radxcm3w9b';
+    function fbMatch(ten,sdt,email){var m={};var e=(email||'').trim().toLowerCase();if(e)m.em=e;var p=(sdt||'').replace(/\D/g,'');if(p.indexOf('0')===0)p='84'+p.slice(1);else if(p&&p.indexOf('84')!==0)p='84'+p;if(p)m.ph=p;var t=(ten||'').trim().replace(/\s+/g,' ').toLowerCase();if(t){var a=t.split(' ');m.fn=a[a.length-1];if(a.length>1)m.ln=a[0];}return m;}
     f.addEventListener('submit',function(e){
       e.preventDefault();
-      var order={ten:f.ten.value.trim(),sdt:f.sdt.value.trim(),email:f.email.value.trim(),amount:868000,ts:Date.now()};
+      var hoten=f.ten.value.trim(), sdt=f.sdt.value.trim(), email=f.email.value.trim();
+      var order={hoten:hoten,sdt:sdt,email:email,amount:868000,ts:Date.now()};
       try{sessionStorage.setItem('xva_order',JSON.stringify(order));}catch(_){}
-      try{if(window.gtag)gtag('event','dang_ky',{event_category:'xva'});}catch(_){}
+      try{fetch(WEBHOOK,{method:'POST',keepalive:true,body:new URLSearchParams({ho_ten:hoten,so_dien_thoai:sdt,email:email,san_pham:'XƯỞNG VIDEO AI',gia:'868000',nguon:location.host,thoi_gian:new Date().toISOString()})});}catch(_){}
+      try{if(window.fbq){fbq('init','1324953789789972',fbMatch(hoten,sdt,email));fbq('track','Lead',{value:868000,currency:'VND',content_name:'XƯỞNG VIDEO AI'});}}catch(_){}
       window.location.href='thanh-toan.html';
     });
   })();
