@@ -41,7 +41,7 @@ fbq('track','PageView');
   .wrap{width:100%;max-width:1120px;margin:0 auto;padding:0 22px;position:relative;z-index:1}
   .narrow{max-width:820px}
   section{padding:clamp(44px,6.5vw,80px) 0;position:relative;z-index:1}
-  h1,h2,h3{line-height:1.2;font-weight:800;letter-spacing:-.015em}
+  h1,h2,h3{line-height:1.2;font-weight:800;letter-spacing:-.015em;text-wrap:balance}
   h2{font-size:clamp(25px,4.2vw,38px);margin-bottom:16px;color:#fff}
   h3{font-size:clamp(18px,2.6vw,22px);color:#fff;margin-bottom:8px}
   p{color:var(--muted);margin-bottom:14px}
@@ -50,7 +50,7 @@ fbq('track','PageView');
   .center{text-align:center}
   .sec-head{max-width:760px;margin:0 auto clamp(30px,4vw,46px)}
   .sec-head.center{text-align:center}
-  .lead-sub{color:var(--muted);font-size:clamp(16px,2vw,18.5px)}
+  .lead-sub{color:var(--muted);font-size:clamp(16px,2vw,18.5px);text-wrap:pretty}
 
   .btn{display:inline-block;background:linear-gradient(135deg,var(--accent) 0%,var(--primary) 100%);color:#160a04;font-weight:800;font-size:clamp(16px,2.2vw,19px);padding:16px 34px;border-radius:14px;text-decoration:none;border:none;cursor:pointer;box-shadow:var(--glow);transition:transform .2s ease,box-shadow .2s ease}
   .btn:hover{transform:translateY(-2px);box-shadow:0 0 70px -8px rgba(226,86,43,.75)}
@@ -134,7 +134,13 @@ fbq('track','PageView');
   .lect-img{border-radius:var(--radius);overflow:hidden;border:1px solid rgba(245,165,36,.3);box-shadow:var(--glow),var(--glow-soft)}
   .lect-img img{width:100%;display:block}
   .lect .name{font-size:clamp(24px,3.4vw,30px);color:#fff;margin-bottom:4px}
-  .lect .role{color:var(--accent);font-weight:700;margin-bottom:16px}
+  .lect .role{color:var(--accent);font-weight:700;margin-bottom:16px;text-wrap:balance}
+  .cred{list-style:none;margin:16px 0 4px;padding:0;display:grid;gap:12px}
+  .cred li{position:relative;padding-left:32px;color:#d7deec;font-size:15.5px}
+  .cred li::before{content:"";position:absolute;left:0;top:2px;width:21px;height:21px;border-radius:6px;background:rgba(245,165,36,.14);
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='13' height='13' viewBox='0 0 24 24' fill='none' stroke='%23F5A524' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='20 6 9 17 4 12'/></svg>");
+    background-repeat:no-repeat;background-position:center}
+  .cred li b{color:#fff}
   .lect p{margin-bottom:12px}
   .lect .q{color:#fff;font-weight:600;border-left:3px solid var(--accent);padding-left:14px}
 
@@ -507,9 +513,14 @@ fbq('track','PageView');
         <div class="name">Lê Thanh Sơn</div>
         <div class="role">Chuyên gia và diễn giả đào tạo ứng dụng AI cho doanh nghiệp</div>
         <p class="q">Tôi không dạy cái tôi đọc được. Tôi dạy cái tôi đang dùng hằng ngày cho công việc của chính mình.</p>
-        <p>Tôi có một buổi dạy trực tuyến dài 2 tiếng 12 phút. Tôi đưa nó vào máy, cắt thành 14 bài học riêng, mỗi bài trọn một chủ đề. Toàn bộ 14 bài đó đang nằm trên trang học của học viên tôi.</p>
-        <p>Tôi cắt 6 video lời chứng của học viên thành clip sạch, dựng 4 dự án video bằng công cụ tự động kèm giọng đọc AI, và tự tay tinh chỉnh 3 bộ công cụ riêng cho việc của mình.</p>
-        <p>Và tôi chạy toàn bộ việc này <b>trên máy Windows</b>. Nên tôi biết đúng những chỗ máy Windows hay hỏng lúc cài, và biết cách gỡ. Chương 0 của khóa này ra đời từ đó.</p>
+        <ul class="cred">
+          <li><b>8 năm</b> tư vấn thương hiệu, truyền thông và marketing cho doanh nghiệp</li>
+          <li><b>4 năm</b> nghiên cứu và đào tạo ứng dụng AI thực tế cho doanh nghiệp</li>
+          <li>Hơn <b>40 chương trình</b> đào tạo trực tuyến đã đứng lớp</li>
+          <li>Đã đào tạo hơn <b>20 doanh nghiệp</b>: Vận Tải Tàu Biển Việt Nam, Đại học Công nghiệp Hà Nội…</li>
+          <li>Tác giả khóa <b>"Làm Chủ 50 Công Cụ AI"</b> - hơn 1.000 học viên</li>
+          <li>Tác giả khóa <b>"AI Business Master"</b></li>
+        </ul>
         <div class="bni">
           <img src="assets/logo-bni-proud-member.png" alt="Thành viên tự hào của BNI" loading="lazy" />
           <p>Thành viên chính thức <b>BNI</b> - tổ chức kết nối kinh doanh lớn nhất thế giới, sinh hoạt cùng cộng đồng chủ doanh nghiệp mỗi tuần.</p>
