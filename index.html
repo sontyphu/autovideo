@@ -175,10 +175,20 @@ fbq('track','PageView');
 
   /* Bảng giá trị + form */
   .value-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,3.4vw,40px);align-items:start}
-  .vtable{width:100%;border-collapse:collapse;background:var(--panel);border-radius:14px;overflow:hidden}
-  .vtable td{padding:13px 15px;border-bottom:1px solid var(--line);font-size:15px;color:var(--muted);vertical-align:top}
-  .vtable td b{color:#fff}
-  .vtable tr:last-child td{border-bottom:none}
+  .stack{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 20px 20px}
+  .stack-group{padding-top:2px}
+  .sg-head{font-size:12px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:8px 0 6px;padding-top:14px;border-top:1px solid var(--line)}
+  .stack-group:first-child .sg-head{border-top:none;padding-top:6px}
+  .si{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+  .si:last-child{border-bottom:none}
+  .si-t{color:var(--muted);font-size:15px}
+  .si-t b{color:#fff}
+  .si-v{color:#e5e7eb;font-size:14.5px;font-weight:700;white-space:nowrap}
+  .si-v.free{color:var(--accent)}
+  .stack-total{display:flex;justify-content:space-between;align-items:baseline;margin-top:16px;padding-top:14px;border-top:2px solid rgba(245,165,36,.3);color:#fff;font-size:16.5px;font-weight:800}
+  .stack-total .old{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--primary);text-decoration-thickness:2px}
+  .stack-today{margin-top:12px;text-align:center;background:linear-gradient(135deg,rgba(245,165,36,.14),rgba(226,86,43,.14));border:1px solid rgba(245,165,36,.35);border-radius:12px;padding:14px;color:#fff;font-size:16px}
+  .stack-today b{color:var(--accent);font-size:22px;display:block;margin-top:2px}
   .form-box{background:var(--panel);border:2px solid var(--primary);border-radius:var(--radius);padding:clamp(22px,3vw,30px);box-shadow:var(--glow);position:sticky;top:18px}
   .form-box h3{text-align:center;margin-bottom:4px}
   .price-row{text-align:center;margin:8px 0 16px}
@@ -563,14 +573,31 @@ fbq('track','PageView');
   <div class="wrap">
     <div class="sec-head center reveal"><h2>Bạn nhận gì trong khóa</h2></div>
     <div class="value-wrap">
-      <table class="vtable reveal">
-        <tr><td><b>Chương 0</b> - 8 bài cài đặt cầm tay, thử ngay tại chỗ</td><td>Nếu không: mò một mình nhiều buổi tối, hoặc bỏ cuộc ngay cửa đầu</td></tr>
-        <tr><td><b>Chương 1 và 2</b> - 10 bài cắt video dài thành loạt clip</td><td>Nếu không: thuê ngoài 1 đến 3 triệu mỗi video, nhân với số video bạn có</td></tr>
-        <tr><td><b>Chương 3</b> - 5 bài dạy máy nhớ gu thương hiệu</td><td>Nếu không: mỗi lần thuê người mới là mô tả lại từ đầu</td></tr>
-        <tr><td><b>Chương 4</b> - 3 bài làm hàng loạt, xuất nhiều tỉ lệ khung</td><td>Nếu không: ngồi bấm từng video, dựng lại ba lần</td></tr>
-        <tr><td><b>Chương 5 và 6</b> - 6 bài moi nội dung từ kho cũ + nhận việc</td><td>Nếu không: video cũ nằm im, không gánh nổi mảng video</td></tr>
-        <tr><td><b>Buổi Zoom gỡ vướng trực tiếp</b> + 4 món tặng kèm</td><td>Nếu không: tắc ở đâu là dừng ở đó</td></tr>
-      </table>
+      <div class="stack reveal">
+        <div class="stack-group">
+          <div class="sg-head">Khóa học - 7 chương, 32 bài, học trọn đời</div>
+          <div class="si"><span class="si-t"><b>Chương 0</b> (8 bài) - Cài đặt xưởng cầm tay, thử ngay tại chỗ</span><span class="si-v">500.000đ</span></div>
+          <div class="si"><span class="si-t"><b>Chương 1 và 2</b> (10 bài) - Cắt video dài thành loạt clip</span><span class="si-v">1.500.000đ</span></div>
+          <div class="si"><span class="si-t"><b>Chương 3</b> (5 bài) - Dạy máy nhớ gu thương hiệu</span><span class="si-v">900.000đ</span></div>
+          <div class="si"><span class="si-t"><b>Chương 4</b> (3 bài) - Làm hàng loạt, xuất đủ tỉ lệ khung</span><span class="si-v">600.000đ</span></div>
+          <div class="si"><span class="si-t"><b>Chương 5 và 6</b> (6 bài) - Moi tiền kho cũ + làm nghề</span><span class="si-v">800.000đ</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="sg-head">Quà tặng - 4 món kèm theo</div>
+          <div class="si"><span class="si-t">Bộ lệnh mẫu copy dán sẵn theo từng bài</span><span class="si-v">300.000đ</span></div>
+          <div class="si"><span class="si-t">Ba bộ khuôn hiệu ứng mẫu, đổi màu là dùng</span><span class="si-v">400.000đ</span></div>
+          <div class="si"><span class="si-t">Danh sách lỗi hay gặp khi cài, kèm cách gỡ</span><span class="si-v">200.000đ</span></div>
+          <div class="si"><span class="si-t">Nhóm hỗ trợ chung</span><span class="si-v">300.000đ</span></div>
+        </div>
+        <div class="stack-group">
+          <div class="sg-head">Quyền lợi</div>
+          <div class="si"><span class="si-t">Buổi Zoom gỡ vướng trực tiếp với Lê Thanh Sơn</span><span class="si-v">700.000đ</span></div>
+          <div class="si"><span class="si-t">Học trọn đời, xem lại không giới hạn</span><span class="si-v free">Miễn phí</span></div>
+          <div class="si"><span class="si-t">Vào lớp ngay trong hôm nay</span><span class="si-v free">Miễn phí</span></div>
+        </div>
+        <div class="stack-total"><span>Tổng giá trị</span><span class="old">6.200.000đ</span></div>
+        <div class="stack-today">Hôm nay bạn chỉ trả <b>868.000đ</b></div>
+      </div>
       <div class="form-box reveal">
         <h3>Đăng ký XƯỞNG VIDEO AI</h3>
         <div class="price-row"><div class="price">868.000đ</div><div class="price-note">Trả một lần. Học trọn 32 bài. Bộ máy này thuộc về bạn.</div></div>
