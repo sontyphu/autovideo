@@ -587,17 +587,24 @@ fbq('track','PageView');
     window.addEventListener('scroll',function(){s.classList.toggle('show',window.scrollY>640);});
   })();
 
-  /* Form -> gửi lead về Make + bắn pixel Lead + sang trang thanh toán */
+  /* Form -> gửi lead về Make (khớp tên trường scenario Autovideo) + bắn pixel Lead + sang trang thanh toán */
   (function(){
     var f=document.getElementById('regForm');if(!f)return;
     var WEBHOOK='https://hook.eu2.make.com/o9r5obpv72bj0oo7g1m3e2radxcm3w9b';
     function fbMatch(ten,sdt,email){var m={};var e=(email||'').trim().toLowerCase();if(e)m.em=e;var p=(sdt||'').replace(/\D/g,'');if(p.indexOf('0')===0)p='84'+p.slice(1);else if(p&&p.indexOf('84')!==0)p='84'+p;if(p)m.ph=p;var t=(ten||'').trim().replace(/\s+/g,' ').toLowerCase();if(t){var a=t.split(' ');m.fn=a[a.length-1];if(a.length>1)m.ln=a[0];}return m;}
+    function thietBi(){return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?'Điện thoại':'Máy tính';}
+    function heDieuHanh(){var u=navigator.userAgent;if(/Windows/i.test(u))return'Windows';if(/Android/i.test(u))return'Android';if(/iPhone|iPad|iPod/i.test(u))return'iOS';if(/Mac OS X|Macintosh/i.test(u))return'macOS';if(/Linux/i.test(u))return'Linux';return'Khác';}
+    function gioVN(){try{return new Date().toLocaleString('vi-VN',{hour12:false,timeZone:'Asia/Ho_Chi_Minh'});}catch(_){return new Date().toISOString();}}
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var hoten=f.ten.value.trim(), sdt=f.sdt.value.trim(), email=f.email.value.trim();
       var order={hoten:hoten,sdt:sdt,email:email,amount:868000,ts:Date.now()};
       try{sessionStorage.setItem('xva_order',JSON.stringify(order));}catch(_){}
-      try{fetch(WEBHOOK,{method:'POST',keepalive:true,body:new URLSearchParams({ho_ten:hoten,so_dien_thoai:sdt,email:email,san_pham:'XƯỞNG VIDEO AI',gia:'868000',nguon:location.host,thoi_gian:new Date().toISOString()})});}catch(_){}
+      try{fetch(WEBHOOK,{method:'POST',keepalive:true,body:new URLSearchParams({
+        thoi_gian:gioVN(), hoten:hoten, sdt:sdt, email:email,
+        nguon:location.href, referrer:(document.referrer||'Trực tiếp / không rõ'),
+        thiet_bi:thietBi(), he_dieu_hanh:heDieuHanh(), loai:'Đăng ký mới'
+      })});}catch(_){}
       try{if(window.fbq){fbq('init','1324953789789972',fbMatch(hoten,sdt,email));fbq('track','Lead',{value:868000,currency:'VND',content_name:'XƯỞNG VIDEO AI'});}}catch(_){}
       window.location.href='thanh-toan.html';
     });
