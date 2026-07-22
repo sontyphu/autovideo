@@ -105,6 +105,13 @@ fbq('track','PageView');
   .bcard b{display:block;color:#fff;margin-bottom:4px;font-size:16.5px}
   .bcard span{color:var(--muted);font-size:15px}
 
+  /* Trả lời nỗi lo */
+  .qa-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+  .qa{background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:14px;padding:20px 22px}
+  .qa .q{color:#fff;font-weight:700;font-size:16.5px;margin-bottom:8px}
+  .qa .a{color:var(--muted);font-size:15px}
+  .qa .a b{color:var(--accent)}
+
   /* Một ngày làm việc */
   .day{background:linear-gradient(180deg,rgba(226,86,43,.08),transparent);border:1px solid var(--line);border-radius:var(--radius);padding:clamp(24px,3.4vw,40px)}
   .day p{font-size:clamp(16px,2vw,18px)}
@@ -232,6 +239,7 @@ fbq('track','PageView');
     .stats{grid-template-columns:repeat(2,1fr);gap:26px 18px}
     .gifts{grid-template-columns:1fr}
     .cond{grid-template-columns:1fr}
+    .qa-grid{grid-template-columns:1fr}
     body{font-size:16px}
     .sticky .t{display:none}
     .sticky .in{justify-content:center}
@@ -328,6 +336,22 @@ fbq('track','PageView');
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="21 4 21 9 16 9"/><path d="M20 15a8 8 0 1 1-1.8-8.3L21 9"/></svg></div><b>Video cũ được dùng lại</b><span>Buổi quay từ năm ngoái, lọc ra đoạn còn bán được, cắt thành clip mới.</span></div>
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><b>Lời chứng khách hàng thành clip sạch</b><span>Cắt gọn, bỏ ngập ngừng, đủ sức thuyết phục người đang phân vân.</span></div>
       <div class="bcard reveal"><div class="ic"><svg viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><b>Một quy trình chạy lại được</b><span>Đóng cách làm của bạn thành khuôn, đủ để nhận việc hoặc gánh mảng video công ty.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Trả lời nỗi lo cụ thể ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head center reveal"><h2>Bạn đang lo đúng những điều này - khóa làm được hết</h2><p class="lead-sub">Quay thì ai cũng quay được. Cái ngốn cả buổi là khúc sau: cắt, phụ đề, nhạc, hiệu ứng cho ra video xem được. Khóa này gánh đúng khúc đó - bạn gửi một câu, máy làm hết.</p></div>
+    <div class="qa-grid">
+      <div class="qa reveal"><div class="q">Cắt đúng chỗ mình muốn?</div><div class="a"><b>Được.</b> Máy bóc lời nói thành chữ có mốc giờ; bạn bảo "giữ đoạn này, bỏ đoạn kia", hoặc để máy tự cắt theo chủ đề - đúng câu, không đứt giữa lời.</div></div>
+      <div class="qa reveal"><div class="q">Chèn được phụ đề (caption)?</div><div class="a"><b>Tự động.</b> Phụ đề chạy theo lời, đúng chính tả, canh đúng thời điểm - không gõ tay từng dòng.</div></div>
+      <div class="qa reveal"><div class="q">Font chữ có đẹp không?</div><div class="a"><b>Đẹp và đúng gu bạn.</b> Chọn font và màu thương hiệu một lần, phụ đề luôn ra đúng kiểu đó - không phải font mặc định.</div></div>
+      <div class="qa reveal"><div class="q">Chèn nhạc thế nào?</div><div class="a"><b>Một câu lệnh.</b> Thêm nhạc nền, chỉnh to nhỏ, tự nhỏ lại lúc bạn đang nói - khỏi ngồi canh tay từng giây.</div></div>
+      <div class="qa reveal"><div class="q">Hiệu ứng chuyển cảnh thì sao?</div><div class="a"><b>Có.</b> Chuyển cảnh, phóng to điểm nhấn, thẻ chữ nổi ở câu chốt - làm theo khuôn bạn thích, đồng bộ cả loạt clip.</div></div>
+      <div class="qa reveal"><div class="q">Nó có bám theo đúng video của tôi không?</div><div class="a"><b>Có.</b> Máy đọc hiểu nội dung video rồi mới làm, nên bám đúng ý bạn nói - không cắt bừa, không lạc nội dung.</div></div>
+      <div class="qa reveal"><div class="q">Vẫn phải ngồi làm cả buổi?</div><div class="a"><b>Không.</b> Gửi một câu lệnh rồi đi làm việc khác, máy làm xong bạn quay lại lấy - không còn ngồi tua tới khuya.</div></div>
     </div>
   </div>
 </section>
