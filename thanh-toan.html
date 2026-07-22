@@ -64,20 +64,20 @@
        ========================================================================== */
     --primary:#E2562B; --primary-d:#A63A18; --violet:#7C2D12;
     --accent:#F5A524; --accent-d:#D97706;
-    --tint:#FEF0EA; --tint-2:#FCDCCF;
-    --topbar-grad:linear-gradient(135deg,#111827 0%,#7C2D12 55%,#E2562B 100%);
-    /* ===== nền chung (ít khi đổi) ===== */
-    --ink:#0f172a; --muted:#475569; --line:#e2e8f0;
-    --bg:#ffffff; --soft:#f8fafc; --soft2:#f1f5f9;
-    --ok:#16a34a; --radius:16px;
-    --shadow:0 10px 30px -12px rgba(15,23,42,.18);
-    --shadow-lg:0 24px 60px -20px rgba(124,45,18,.45);
+    --tint:rgba(245,165,36,.12); --tint-2:rgba(245,165,36,.24);
+    --topbar-grad:linear-gradient(135deg,#0B0F1A 0%,#7C2D12 62%,#E2562B 120%);
+    /* ===== nền tối đồng bộ trang bán ===== */
+    --ink:#F3F4F6; --muted:#9aa4b8; --line:rgba(255,255,255,.10);
+    --bg:#0B0F1A; --soft:#111827; --soft2:#161f33;
+    --ok:#22c55e; --radius:16px;
+    --shadow:0 20px 50px -30px rgba(0,0,0,.8);
+    --shadow-lg:0 0 60px -12px rgba(226,86,43,.5);
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
   html,body{overflow-x:hidden}
   img{max-width:100%;height:auto}
-  body{font-family:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--soft);line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
+  body{font-family:'Be Vietnam Pro',system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:radial-gradient(600px 400px at 10% 0%,rgba(226,86,43,.16),transparent 60%),radial-gradient(700px 500px at 95% 18%,rgba(245,165,36,.10),transparent 60%),var(--bg);background-attachment:fixed;line-height:1.6;font-size:17px;-webkit-font-smoothing:antialiased}
   .wrap{width:100%;max-width:1000px;margin:0 auto;padding:0 18px}
   h1,h2,h3{line-height:1.25;font-weight:800;letter-spacing:-.01em}
   h2{font-size:clamp(20px,3.4vw,26px);margin-bottom:10px}
@@ -105,7 +105,7 @@
   .col-pay{flex:1 1 380px;max-width:430px;position:sticky;top:18px}
   .col-info{flex:1 1 460px;min-width:0}
 
-  .panel{background:#fff;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px}
+  .panel{background:#131b2e;border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:24px;margin-bottom:18px}
   .panel-pay{border:2px solid var(--primary);box-shadow:var(--shadow-lg);padding:15px}
 
   .eyebrow{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--primary);background:var(--tint);padding:5px 11px;border-radius:999px;margin-bottom:12px}
@@ -132,7 +132,7 @@
   .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-weight:800;font-size:17px;padding:15px 24px;border-radius:12px;cursor:pointer;border:none;text-decoration:none;transition:transform .15s ease,box-shadow .15s ease;width:100%;font-family:inherit}
   .btn-paid{background:var(--ok);color:#fff;margin-top:18px}
   .btn-paid:hover{transform:translateY(-2px)}
-  .btn-zalo{background:#fff;color:var(--primary-d);border:1.6px solid var(--primary);margin-top:10px}
+  .btn-zalo{background:transparent;color:var(--accent);border:1.6px solid var(--primary);margin-top:10px}
 
   .after-pay{font-size:12.5px;color:var(--muted);font-weight:600;text-align:center;margin-top:14px;white-space:nowrap}
   .after-pay b{color:var(--ink)}
@@ -150,7 +150,7 @@
   .strike{color:#94a3b8;text-decoration:line-through;font-weight:600;font-size:14px}
   .total{display:flex;justify-content:space-between;align-items:center;margin-top:12px;padding-top:14px;border-top:2px solid var(--line)}
   .total .lbl{font-weight:700;font-size:15px}
-  .total .amt{font-weight:800;font-size:26px;color:var(--primary-d)}
+  .total .amt{font-weight:800;font-size:26px;color:var(--accent)}
   .save{display:inline-block;background:#dcfce7;color:#15803d;font-weight:800;font-size:13px;padding:5px 11px;border-radius:999px;margin-top:10px}
 
   /* lists */
@@ -165,7 +165,7 @@
   .guarantee p{font-size:14px}
 
   /* FAQ */
-  details{background:#fff;border:1px solid var(--line);border-radius:12px;margin:0 auto 10px;overflow:hidden;text-align:left}
+  details{background:#131b2e;border:1px solid var(--line);border-radius:12px;margin:0 auto 10px;overflow:hidden;text-align:left}
   details summary{cursor:pointer;font-weight:700;padding:15px 18px;list-style:none;display:flex;justify-content:space-between;gap:12px;font-size:15px}
   details summary::-webkit-details-marker{display:none}
   details summary:after{content:"+";font-size:22px;color:var(--primary);font-weight:400;transition:transform .2s}
@@ -173,7 +173,7 @@
   details .ans{padding:0 18px 16px;font-size:14.5px;color:var(--muted)}
 
   footer{color:#94a3b8;text-align:center;padding:30px 18px;font-size:13.5px}
-  footer b{color:#475569}
+  footer b{color:#cbd5e1}
 
   @media(max-width:820px){
     body{font-size:16px}
