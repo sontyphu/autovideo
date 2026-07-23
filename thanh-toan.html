@@ -4,9 +4,18 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!-- ===== ĐO LƯỜNG Google Analytics 4 (điền [GA4_ID] - TRÙNG id bên index.html để đo trọn phễu) ===== -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=[GA4_ID]"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','[GA4_ID]');</script>
+<!-- ===== Google Analytics 4 (TRÙNG mã đo với index.html để đo trọn phễu) ===== -->
+<script>
+  var GA4_ID = "[GA4_ID]"; /* <-- THAY mã đo G-XXXX của Autovideo (GIỐNG hệt index.html) */
+  if (GA4_ID.indexOf('G-') === 0) {
+    var _ga=document.createElement('script'); _ga.async=true;
+    _ga.src='https://www.googletagmanager.com/gtag/js?id='+GA4_ID;
+    document.head.appendChild(_ga);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments);};
+    gtag('js', new Date()); gtag('config', GA4_ID);
+  } else { window.gtag=window.gtag||function(){}; } /* no-op khi chưa gắn ID */
+</script>
 
 <!-- ===== ĐO LƯỜNG: Facebook Pixel (điền {{FB_PIXEL_ID}}) ===== -->
 <script>

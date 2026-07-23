@@ -15,6 +15,23 @@ fbq('track','PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1324953789789972&ev=PageView&noscript=1"/></noscript>
 <!-- End Facebook Pixel -->
+
+<!-- ===== Google Analytics 4 (property RIÊNG cho Autovideo) ===== -->
+<!-- CÁCH GẮN: tạo property GA4 mới cho autovideo.lethanhson.net, lấy Mã đo dạng G-XXXX,
+     rồi thay chuỗi [GA4_ID] ngay dưới đây (và cả trong thanh-toan.html). Chưa thay thì GA nằm im, không lỗi. -->
+<script>
+  var GA4_ID = "[GA4_ID]"; /* <-- THAY mã đo G-XXXX của Autovideo vào đây */
+  if (GA4_ID.indexOf('G-') === 0) {
+    var _ga=document.createElement('script'); _ga.async=true;
+    _ga.src='https://www.googletagmanager.com/gtag/js?id='+GA4_ID;
+    document.head.appendChild(_ga);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments);};
+    gtag('js', new Date()); gtag('config', GA4_ID);
+  } else { window.gtag=window.gtag||function(){}; } /* no-op để lệnh gtag('event') không lỗi khi chưa gắn ID */
+</script>
+<!-- End Google Analytics 4 -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -588,7 +605,7 @@ fbq('track','PageView');
         <form id="regForm">
           <input name="ten" required placeholder="Họ và tên" />
           <input name="sdt" required placeholder="Số điện thoại / Zalo" />
-          <input name="email" type="email" placeholder="Email (không bắt buộc)" />
+          <input name="email" type="email" required placeholder="Email" />
           <button type="submit" class="btn btn-wide" style="width:100%">Đăng ký ngay - 868.000đ</button>
         </form>
         <div class="form-foot">Bấm đăng ký để sang bước chuyển khoản. Vào lớp ngay trong hôm nay.</div>
@@ -679,25 +696,49 @@ fbq('track','PageView');
     window.addEventListener('scroll',function(){s.classList.toggle('show',window.scrollY>640);});
   })();
 
-  /* Form -> gửi lead về Make (khớp tên trường scenario Autovideo) + bắn pixel Lead + sang trang thanh toán */
+  /* Form -> gửi lead 14 trường về Make + bắn pixel Lead + đo phễu GA4 + sang trang thanh toán.
+     GIỮ NGUYÊN tên 9 trường cũ (Make đang map): thoi_gian,hoten,sdt,email,nguon,referrer,thiet_bi,he_dieu_hanh,loai.
+     THÊM 5 trường mới: utm_source,utm_campaign,fbclid,ip,vi_tri -> anh Sơn thêm cột trong Make + Sheet. */
   (function(){
     var f=document.getElementById('regForm');if(!f)return;
     var WEBHOOK='https://hook.eu2.make.com/o9r5obpv72bj0oo7g1m3e2radxcm3w9b';
     function fbMatch(ten,sdt,email){var m={};var e=(email||'').trim().toLowerCase();if(e)m.em=e;var p=(sdt||'').replace(/\D/g,'');if(p.indexOf('0')===0)p='84'+p.slice(1);else if(p&&p.indexOf('84')!==0)p='84'+p;if(p)m.ph=p;var t=(ten||'').trim().replace(/\s+/g,' ').toLowerCase();if(t){var a=t.split(' ');m.fn=a[a.length-1];if(a.length>1)m.ln=a[0];}return m;}
-    function thietBi(){return /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?'Điện thoại':'Máy tính';}
+    function thietBi(){var u=navigator.userAgent||'';return (/iPad|Tablet|PlayBook|Silk/i.test(u)||(/Android/i.test(u)&&!/Mobile/i.test(u)))?'Máy tính bảng':((/Mobi|iPhone|Android.*Mobile|Windows Phone/i.test(u))?'Điện thoại':'Máy tính');}
     function heDieuHanh(){var u=navigator.userAgent;if(/Windows/i.test(u))return'Windows';if(/Android/i.test(u))return'Android';if(/iPhone|iPad|iPod/i.test(u))return'iOS';if(/Mac OS X|Macintosh/i.test(u))return'macOS';if(/Linux/i.test(u))return'Linux';return'Khác';}
     function gioVN(){try{return new Date().toLocaleString('vi-VN',{hour12:false,timeZone:'Asia/Ho_Chi_Minh'});}catch(_){return new Date().toISOString();}}
+
+    /* Chạy nền lúc tải: khách mới/quay lại + IP + tỉnh/thành + NGUỒN first-touch */
+    var _ip='', _vitri='', _khach='';
+    try{_khach=localStorage.getItem('xva_visited')?'Quay lại':'Mới';localStorage.setItem('xva_visited','1');}catch(_){}
+    try{fetch('https://ipwho.is/').then(function(r){return r.json();}).then(function(d){if(d&&d.success!==false){_ip=d.ip||'';_vitri=d.region||'';}}).catch(function(){});}catch(_){}
+    try{var _p0=new URLSearchParams(location.search);
+      var _cur={utm_source:_p0.get('utm_source')||'',utm_campaign:_p0.get('utm_campaign')||'',fbclid:_p0.get('fbclid')||'',nguon:location.href,referrer:document.referrer||''};
+      if(!localStorage.getItem('xva_src')&&(_cur.utm_source||_cur.utm_campaign||_cur.fbclid)){localStorage.setItem('xva_src',JSON.stringify(_cur));}
+    }catch(_){}
+
+    /* Đo phễu GA4 tự bắn: mo_form (bắt đầu điền) + bam_dang_ky (bấm CTA tới form) */
+    var _moDone=false;
+    f.addEventListener('input',function(){if(_moDone)return;_moDone=true;try{if(window.gtag)gtag('event','mo_form',{event_category:'autovideo',event_label:'bat_dau_dien_form'});}catch(_){}});
+    document.querySelectorAll('a[href="#dangky"],[data-cta]').forEach(function(a){a.addEventListener('click',function(){try{if(window.gtag)gtag('event','bam_dang_ky',{event_category:'autovideo',event_label:'cta_toi_form'});}catch(_){}});});
+
     f.addEventListener('submit',function(e){
       e.preventDefault();
       var hoten=f.ten.value.trim(), sdt=f.sdt.value.trim(), email=f.email.value.trim();
+      var src={};try{src=JSON.parse(localStorage.getItem('xva_src')||'{}');}catch(_){}
+      var p=new URLSearchParams(location.search);
       var order={hoten:hoten,sdt:sdt,email:email,amount:868000,ts:Date.now()};
       try{sessionStorage.setItem('xva_order',JSON.stringify(order));}catch(_){}
       try{fetch(WEBHOOK,{method:'POST',keepalive:true,body:new URLSearchParams({
         thoi_gian:gioVN(), hoten:hoten, sdt:sdt, email:email,
-        nguon:location.href, referrer:(document.referrer||'Trực tiếp / không rõ'),
-        thiet_bi:thietBi(), he_dieu_hanh:heDieuHanh(), loai:'Đăng ký mới'
+        nguon:(src.nguon||location.href), referrer:(src.referrer||document.referrer||'Trực tiếp / không rõ'),
+        utm_source:(src.utm_source||p.get('utm_source')||''),
+        utm_campaign:(src.utm_campaign||p.get('utm_campaign')||''),
+        fbclid:(src.fbclid||p.get('fbclid')||''),
+        thiet_bi:thietBi(), he_dieu_hanh:heDieuHanh(),
+        ip:_ip, vi_tri:_vitri, loai:_khach
       })});}catch(_){}
       try{if(window.fbq){fbq('init','1324953789789972',fbMatch(hoten,sdt,email));fbq('track','Lead',{value:868000,currency:'VND',content_name:'XƯỞNG VIDEO AI'});}}catch(_){}
+      try{if(window.gtag)gtag('event','dang_ky',{event_category:'autovideo',event_label:'form_dang_ky_thanh_cong'});}catch(_){}
       window.location.href='thanh-toan.html';
     });
   })();
